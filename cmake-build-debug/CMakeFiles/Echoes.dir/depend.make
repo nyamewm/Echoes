@@ -3,4 +3,5 @@
 
 CMakeFiles/Echoes.dir/main.cpp.o: ../game.h
 CMakeFiles/Echoes.dir/main.cpp.o: ../main.cpp
+CMakeFiles/Echoes.dir/main.cpp.o: ../menu.h
 

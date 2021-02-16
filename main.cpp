@@ -1,10 +1,13 @@
 #include <iostream>
 #include <SFML/Graphics.hpp>
 #include "game.h"
+#include "menu.h"
 
 
 int main () {
-    sf::RenderWindow window(sf::VideoMode(1000,1000), "Echoes");
+    sf::RenderWindow window1(sf::VideoMode(1376, 768), "Menu");
+    menu(window1);
+    /*sf::RenderWindow window(sf::VideoMode(1000,1000), "Echoes");
     Player a(&window);
     while(window.isOpen())
     {
@@ -33,7 +36,7 @@ int main () {
 
 
         window.display();
-    }
+    }*/
 
     return 0;
 }
