@@ -77,7 +77,7 @@ void menu(sf::RenderWindow & window1) {
             }
 
 
-            if (menuNum == 2) { window1.display(); while (!sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)); }
+            if (menuNum == 2) {}
             if (menuNum == 3)  { window1.close(); isMenu = false; }
 
         }
