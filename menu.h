@@ -33,8 +33,10 @@ void menu(sf::RenderWindow & window1) {
         sf::Event event;
         while(window1.pollEvent(event))
         {
-            if(event.type == sf::Event::Closed)
+            if(event.type == sf::Event::Closed){
                 window1.close();
+                isMenu = false;
+            }
         }
         if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
         {
