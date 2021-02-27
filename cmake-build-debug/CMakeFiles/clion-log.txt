@@ -1,4 +1,4 @@
-/snap/clion/139/bin/cmake/linux/bin/cmake -DCMAKE_BUILD_TYPE=Debug -G "CodeBlocks - Unix Makefiles" /home/ann/CLionProjects/Echoes
+/home/alex/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/203.7148.70/bin/cmake/linux/bin/cmake -DCMAKE_BUILD_TYPE=Debug -G "CodeBlocks - Unix Makefiles" /home/alex/CLionProjects/Echoes
 -- The C compiler identification is GNU 9.3.0
 -- The CXX compiler identification is GNU 9.3.0
 -- Check for working C compiler: /usr/bin/cc
@@ -16,4 +16,4 @@
 -- Found SFML 2.5.1 in /usr/lib/x86_64-linux-gnu/cmake/SFML
 -- Configuring done
 -- Generating done
--- Build files have been written to: /home/ann/CLionProjects/Echoes/cmake-build-debug
+-- Build files have been written to: /home/alex/CLionProjects/Echoes/cmake-build-debug
