@@ -6,17 +6,17 @@
 
 #IncludeRegexTransform: 
 
-/home/ann/CLionProjects/Echoes/game.h
+/home/ilya/CLionProjects/Echoes/game.h
 
-/home/ann/CLionProjects/Echoes/main.cpp
+/home/ilya/CLionProjects/Echoes/main.cpp
 iostream
 -
 SFML/Graphics.hpp
 -
 game.h
-/home/ann/CLionProjects/Echoes/game.h
+/home/ilya/CLionProjects/Echoes/game.h
 menu.h
-/home/ann/CLionProjects/Echoes/menu.h
+/home/ilya/CLionProjects/Echoes/menu.h
 
-/home/ann/CLionProjects/Echoes/menu.h
+/home/ilya/CLionProjects/Echoes/menu.h
 

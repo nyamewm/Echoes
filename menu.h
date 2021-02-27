@@ -31,13 +31,13 @@ void menu(sf::RenderWindow & window1) {
         if (sf::IntRect(m3[0], m3[1], 300, 50).contains(sf::Mouse::getPosition(window1))) { menu3.setColor(sf::Color::Yellow); menuNum = 3; }
 
         sf::Event event;
-        while(window1.pollEvent(event))
-        {
-            if(event.type == sf::Event::Closed){
+        while (window1.pollEvent(event)) {
+            if (event.type == sf::Event::Closed) {
                 window1.close();
                 isMenu = false;
             }
         }
+
         if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
         {
             if (menuNum == 1) {
@@ -60,16 +60,18 @@ void menu(sf::RenderWindow & window1) {
                     window.setVerticalSyncEnabled(true);
 
 
+
+
+
+
+
+
                     a.draw();
 
                     clock.restart();
                     time = clock.getElapsedTime().asMicroseconds();
                     a.update(time);
                     a.draw();
-
-
-
-
 
                     window.display();
                 }
@@ -89,5 +91,4 @@ void menu(sf::RenderWindow & window1) {
 
         window1.display();
     }
-    ////////////////////////////////////////////////////
 }
