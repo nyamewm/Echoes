@@ -30,6 +30,12 @@ void menu(sf::RenderWindow & window1) {
         if (sf::IntRect(m2[0], m2[1], 300, 50).contains(sf::Mouse::getPosition(window1))) { menu2.setColor(sf::Color::Yellow); menuNum = 2; }
         if (sf::IntRect(m3[0], m3[1], 300, 50).contains(sf::Mouse::getPosition(window1))) { menu3.setColor(sf::Color::Yellow); menuNum = 3; }
 
+        sf::Event event;
+        while(window1.pollEvent(event))
+        {
+            if(event.type == sf::Event::Closed)
+                window1.close();
+        }
         if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
         {
             if (menuNum == 1) {
