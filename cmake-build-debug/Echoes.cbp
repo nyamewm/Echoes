@@ -8,38 +8,38 @@
 		<Option virtualFolders="CMake Files\;CMake Files\..\;CMake Files\..\..\;CMake Files\..\..\..\;CMake Files\..\..\..\..\;CMake Files\..\..\..\..\usr\;CMake Files\..\..\..\..\usr\lib\;CMake Files\..\..\..\..\usr\lib\x86_64-linux-gnu\;CMake Files\..\..\..\..\usr\lib\x86_64-linux-gnu\cmake\;CMake Files\..\..\..\..\usr\lib\x86_64-linux-gnu\cmake\SFML\;"/>
 		<Build>
 			<Target title="all">
-				<Option working_dir="/home/ann/CLionProjects/Echoes/cmake-build-debug"/>
+				<Option working_dir="/home/alex/CLionProjects/Echoes1/cmake-build-debug"/>
 				<Option type="4"/>
 				<MakeCommands>
-					<Build command="/usr/bin/make -j8 -f &quot;/home/ann/CLionProjects/Echoes/cmake-build-debug/Makefile&quot;  VERBOSE=1 all"/>
-					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/ann/CLionProjects/Echoes/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -j8 -f &quot;/home/ann/CLionProjects/Echoes/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -j8 -f &quot;/home/ann/CLionProjects/Echoes/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/make -j4 -f &quot;/home/alex/CLionProjects/Echoes1/cmake-build-debug/Makefile&quot;  VERBOSE=1 all"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/home/alex/CLionProjects/Echoes1/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/home/alex/CLionProjects/Echoes1/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/home/alex/CLionProjects/Echoes1/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="edit_cache">
-				<Option working_dir="/home/ann/CLionProjects/Echoes/cmake-build-debug"/>
+				<Option working_dir="/home/alex/CLionProjects/Echoes1/cmake-build-debug"/>
 				<Option type="4"/>
 				<MakeCommands>
-					<Build command="/usr/bin/make -j8 -f &quot;/home/ann/CLionProjects/Echoes/cmake-build-debug/Makefile&quot;  VERBOSE=1 edit_cache"/>
-					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/ann/CLionProjects/Echoes/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -j8 -f &quot;/home/ann/CLionProjects/Echoes/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -j8 -f &quot;/home/ann/CLionProjects/Echoes/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/make -j4 -f &quot;/home/alex/CLionProjects/Echoes1/cmake-build-debug/Makefile&quot;  VERBOSE=1 edit_cache"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/home/alex/CLionProjects/Echoes1/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/home/alex/CLionProjects/Echoes1/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/home/alex/CLionProjects/Echoes1/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="rebuild_cache">
-				<Option working_dir="/home/ann/CLionProjects/Echoes/cmake-build-debug"/>
+				<Option working_dir="/home/alex/CLionProjects/Echoes1/cmake-build-debug"/>
 				<Option type="4"/>
 				<MakeCommands>
-					<Build command="/usr/bin/make -j8 -f &quot;/home/ann/CLionProjects/Echoes/cmake-build-debug/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
-					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/ann/CLionProjects/Echoes/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -j8 -f &quot;/home/ann/CLionProjects/Echoes/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -j8 -f &quot;/home/ann/CLionProjects/Echoes/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/make -j4 -f &quot;/home/alex/CLionProjects/Echoes1/cmake-build-debug/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/home/alex/CLionProjects/Echoes1/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/home/alex/CLionProjects/Echoes1/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/home/alex/CLionProjects/Echoes1/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="Echoes">
-				<Option output="/home/ann/CLionProjects/Echoes/cmake-build-debug/Echoes" prefix_auto="0" extension_auto="0"/>
-				<Option working_dir="/home/ann/CLionProjects/Echoes/cmake-build-debug"/>
+				<Option output="/home/alex/CLionProjects/Echoes1/cmake-build-debug/Echoes" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/alex/CLionProjects/Echoes1/cmake-build-debug"/>
 				<Option object_output="./"/>
 				<Option type="1"/>
 				<Option compiler="gcc"/>
@@ -53,15 +53,15 @@
 					<Add directory="/usr/include"/>
 				</Compiler>
 				<MakeCommands>
-					<Build command="/usr/bin/make -j8 -f &quot;/home/ann/CLionProjects/Echoes/cmake-build-debug/Makefile&quot;  VERBOSE=1 Echoes"/>
-					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/ann/CLionProjects/Echoes/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -j8 -f &quot;/home/ann/CLionProjects/Echoes/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -j8 -f &quot;/home/ann/CLionProjects/Echoes/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/make -j4 -f &quot;/home/alex/CLionProjects/Echoes1/cmake-build-debug/Makefile&quot;  VERBOSE=1 Echoes"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/home/alex/CLionProjects/Echoes1/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/home/alex/CLionProjects/Echoes1/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/home/alex/CLionProjects/Echoes1/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="Echoes/fast">
-				<Option output="/home/ann/CLionProjects/Echoes/cmake-build-debug/Echoes" prefix_auto="0" extension_auto="0"/>
-				<Option working_dir="/home/ann/CLionProjects/Echoes/cmake-build-debug"/>
+				<Option output="/home/alex/CLionProjects/Echoes1/cmake-build-debug/Echoes" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/alex/CLionProjects/Echoes1/cmake-build-debug"/>
 				<Option object_output="./"/>
 				<Option type="1"/>
 				<Option compiler="gcc"/>
@@ -75,32 +75,32 @@
 					<Add directory="/usr/include"/>
 				</Compiler>
 				<MakeCommands>
-					<Build command="/usr/bin/make -j8 -f &quot;/home/ann/CLionProjects/Echoes/cmake-build-debug/Makefile&quot;  VERBOSE=1 Echoes/fast"/>
-					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/ann/CLionProjects/Echoes/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -j8 -f &quot;/home/ann/CLionProjects/Echoes/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -j8 -f &quot;/home/ann/CLionProjects/Echoes/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/make -j4 -f &quot;/home/alex/CLionProjects/Echoes1/cmake-build-debug/Makefile&quot;  VERBOSE=1 Echoes/fast"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/home/alex/CLionProjects/Echoes1/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/home/alex/CLionProjects/Echoes1/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/home/alex/CLionProjects/Echoes1/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 		</Build>
-		<Unit filename="/home/ann/CLionProjects/Echoes/main.cpp">
+		<Unit filename="/home/alex/CLionProjects/Echoes1/main.cpp">
 			<Option target="Echoes"/>
 		</Unit>
-		<Unit filename="/home/ann/CLionProjects/Echoes/CMakeLists.txt">
+		<Unit filename="/home/alex/CLionProjects/Echoes1/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\"/>
 		</Unit>
-		<Unit filename="/home/ann/CLionProjects/Echoes/../../../../usr/lib/x86_64-linux-gnu/cmake/SFML/SFMLConfig.cmake">
+		<Unit filename="/home/alex/CLionProjects/Echoes1/../../../../usr/lib/x86_64-linux-gnu/cmake/SFML/SFMLConfig.cmake">
 			<Option virtualFolder="CMake Files\..\..\..\..\usr\lib\x86_64-linux-gnu\cmake\SFML\"/>
 		</Unit>
-		<Unit filename="/home/ann/CLionProjects/Echoes/../../../../usr/lib/x86_64-linux-gnu/cmake/SFML/SFMLConfigDependencies.cmake">
+		<Unit filename="/home/alex/CLionProjects/Echoes1/../../../../usr/lib/x86_64-linux-gnu/cmake/SFML/SFMLConfigDependencies.cmake">
 			<Option virtualFolder="CMake Files\..\..\..\..\usr\lib\x86_64-linux-gnu\cmake\SFML\"/>
 		</Unit>
-		<Unit filename="/home/ann/CLionProjects/Echoes/../../../../usr/lib/x86_64-linux-gnu/cmake/SFML/SFMLConfigVersion.cmake">
+		<Unit filename="/home/alex/CLionProjects/Echoes1/../../../../usr/lib/x86_64-linux-gnu/cmake/SFML/SFMLConfigVersion.cmake">
 			<Option virtualFolder="CMake Files\..\..\..\..\usr\lib\x86_64-linux-gnu\cmake\SFML\"/>
 		</Unit>
-		<Unit filename="/home/ann/CLionProjects/Echoes/../../../../usr/lib/x86_64-linux-gnu/cmake/SFML/SFMLSharedTargets-none.cmake">
+		<Unit filename="/home/alex/CLionProjects/Echoes1/../../../../usr/lib/x86_64-linux-gnu/cmake/SFML/SFMLSharedTargets-none.cmake">
 			<Option virtualFolder="CMake Files\..\..\..\..\usr\lib\x86_64-linux-gnu\cmake\SFML\"/>
 		</Unit>
-		<Unit filename="/home/ann/CLionProjects/Echoes/../../../../usr/lib/x86_64-linux-gnu/cmake/SFML/SFMLSharedTargets.cmake">
+		<Unit filename="/home/alex/CLionProjects/Echoes1/../../../../usr/lib/x86_64-linux-gnu/cmake/SFML/SFMLSharedTargets.cmake">
 			<Option virtualFolder="CMake Files\..\..\..\..\usr\lib\x86_64-linux-gnu\cmake\SFML\"/>
 		</Unit>
 	</Project>

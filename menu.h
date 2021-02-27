@@ -1,17 +1,21 @@
-
 void menu(sf::RenderWindow & window1) {
+
+    std::vector <int> m1 {250, 200};
+    std::vector <int> m2 {250, 250};
+    std::vector <int> m3 {250, 300};
+
     sf::Texture menuTexture1, menuTexture2, menuTexture3, aboutTexture, menuBackground;
     menuTexture1.loadFromFile("images/111.png");
     menuTexture2.loadFromFile("images/222.png");
     menuTexture3.loadFromFile("images/333.png");
-    menuBackground.loadFromFile("images/Penguins.jpg");
+    menuBackground.loadFromFile("images/menu.jpg");
     sf::Sprite menu1(menuTexture1), menu2(menuTexture2), menu3(menuTexture3), menuBg(menuBackground);
     bool isMenu = 1;
     int menuNum = 0;
-    menu1.setPosition(100, 30);
-    menu2.setPosition(100, 90);
-    menu3.setPosition(100, 150);
-    menuBg.setPosition(345, 0);
+    menu1.setPosition(m1[0] , m1[1]);
+    menu2.setPosition(m2[0], m2[1]);
+    menu3.setPosition(m3[0], m3[1]);
+    menuBg.setPosition(0, 0);
 
     //////////////////////////////МЕНЮ///////////////////
     while (isMenu)
@@ -22,9 +26,9 @@ void menu(sf::RenderWindow & window1) {
         menuNum = 0;
         window1.clear(sf::Color(129, 181, 221));
 
-        if (sf::IntRect(100, 30, 300, 50).contains(sf::Mouse::getPosition(window1))) { menu1.setColor(sf::Color::Black); menuNum = 1; }
-        if (sf::IntRect(100, 90, 300, 50).contains(sf::Mouse::getPosition(window1))) { menu2.setColor(sf::Color::Black); menuNum = 2; }
-        if (sf::IntRect(100, 150, 300, 50).contains(sf::Mouse::getPosition(window1))) { menu3.setColor(sf::Color::Black); menuNum = 3; }
+        if (sf::IntRect(m1[0] , m1[1], 300, 50).contains(sf::Mouse::getPosition(window1))) { menu1.setColor(sf::Color::Yellow); menuNum = 1; }
+        if (sf::IntRect(m2[0], m2[1], 300, 50).contains(sf::Mouse::getPosition(window1))) { menu2.setColor(sf::Color::Yellow); menuNum = 2; }
+        if (sf::IntRect(m3[0], m3[1], 300, 50).contains(sf::Mouse::getPosition(window1))) { menu3.setColor(sf::Color::Yellow); menuNum = 3; }
 
         if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
         {
