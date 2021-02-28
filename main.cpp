@@ -1,4 +1,5 @@
 #include <iostream>
+#include <math.h>
 #include <SFML/Graphics.hpp>
 #include "game.h"
 #include "menu.h"
