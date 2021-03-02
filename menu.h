@@ -45,6 +45,7 @@ void menu(sf::RenderWindow & window1) {
                 window1.close();
                 sf::RenderWindow window(sf::VideoMode(1000,1000), "Echoes");
                 Player a(&window);
+                Static b(&window);
                 while(window.isOpen())
                 {
                     sf::Event event;
@@ -61,11 +62,14 @@ void menu(sf::RenderWindow & window1) {
 
 
                     a.draw();
+                    b.draw();
 
                     clock.restart();
                     time = clock.getElapsedTime().asMicroseconds();
                     a.update(time);
+                    b.update(time);
                     a.draw();
+                    b.draw();
 
 
 
