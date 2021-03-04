@@ -1,5 +1,6 @@
 #include <iostream>
 #include <SFML/Graphics.hpp>
+#include"game.h"
 
 class TileMap : public sf::Drawable, public sf::Transformable
 {
@@ -63,9 +64,9 @@ private:
     sf::Texture m_tileset;
 };
 
-void run(){
+int run(sf::RenderWindow* window){
     // create the window
-    sf::RenderWindow window(sf::VideoMode(512, 256), "Tilemap");
+    Player a(window);
     sf::View view(sf::FloatRect(0.f, 0.f, 512.f, 256.f));
     sf::View minimapView;
     // define the level with an array of tile indices
@@ -83,18 +84,18 @@ void run(){
 
     // create the tilemap from the level definition
     TileMap map;
-    if (!map.load("tileset.png", sf::Vector2u(32, 32), level, 16, 8))
+    if (!map.load("images/tileset.png", sf::Vector2u(32, 32), level, 16, 8))
         return -1;
 
     // run the main loop
-    while (window.isOpen())
+    while (window->isOpen())
     {
         // handle events
         sf::Event event;
-        while (window.pollEvent(event))
+        while (window->pollEvent(event))
         {
             if(event.type == sf::Event::Closed)
-                window.close();
+                window->close();
             if (sf::Keyboard::isKeyPressed(sf::Keyboard::I))
             {
                 view.zoom(0.9);
@@ -118,12 +119,24 @@ void run(){
         minimapView.setViewport(sf::FloatRect(0.75f, 0.f, 0.25f, 0.25f));
 
 
-        window.clear();
-        window.draw(map);
-        window.setView(minimapView);
-        window.setView(view);
+        sf::Clock clock;
+        float time;
+        window->setVerticalSyncEnabled(true);
 
-        window.display();
+        clock.restart();
+        time = clock.getElapsedTime().asMicroseconds();
+        a.update(time);
+        a.draw();
+
+
+        window->clear();
+
+        window->draw(map);
+        a.draw();
+        window->setView(minimapView);
+        window->setView(view);
+
+        window->display();
     }
 }
 

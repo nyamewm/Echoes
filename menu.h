@@ -1,3 +1,4 @@
+#include "map.h"
 void menu(sf::RenderWindow & window1) {
 
     std::vector <int> m1 {150, 250};
@@ -43,8 +44,8 @@ void menu(sf::RenderWindow & window1) {
             if (menuNum == 1) {
                 isMenu = false;
                 window1.close();
-                sf::RenderWindow window(sf::VideoMode(1000,1000), "Echoes");
-                Player a(&window);
+                sf::RenderWindow window(sf::VideoMode(512, 256), "Tilemap");
+
                 while(window.isOpen())
                 {
                     sf::Event event;
@@ -53,26 +54,8 @@ void menu(sf::RenderWindow & window1) {
                         if(event.type == sf::Event::Closed)
                             window.close();
                     }
-                    window.clear();
 
-                    sf::Clock clock;
-                    float time;
-                    window.setVerticalSyncEnabled(true);
-
-
-
-
-
-
-
-
-                    a.draw();
-
-                    clock.restart();
-                    time = clock.getElapsedTime().asMicroseconds();
-                    a.update(time);
-                    a.draw();
-
+                    run(&window);
                     window.display();
                 }
 
