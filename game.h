@@ -4,12 +4,8 @@
 #define DDD sf::Keyboard::isKeyPressed(sf::Keyboard::D)
 #define SPACE sf::Keyboard::isKeyPressed(sf::Keyboard::Space)
 
-bool CollisionCircleRectangle(float x1, float y1, float r, float x2, float y2, float l,float w)
+bool CollisionCircleRectangle(float x1, float y1, float r, float x2, float y2, float l, float w, double v)
 {
-    if(((x1 > x2)&&(x1 < x2+l))
-            &&
-            ((y1 > y2)&&(y1 < y2+w)))
-        return true;
     float b = -2*y1;
     float c = pow(y1, 2) + pow((x2-x1), 2) - pow(r, 2);
     double D = pow(b, 2) - 4*c;
@@ -80,6 +76,7 @@ public:
 class Player: public Dynamic {
 public:
     int level;
+    sf::Vector2f pos;
     float vmax, vmin, vrot;
     Player(sf::RenderWindow* window);
     /*void draw()
@@ -228,7 +225,10 @@ void Player::update(float time) {
         else
             this->v = v+acceleration*time;
     }
-    if(CollisionCircleRectangle(this->x+25, this->y+25, this->r, 500, 500, 200, 200))
+    pos = rectangle.getPosition();
+    pos.x += v*time*sin(this->rectangle.getRotation()*0.0175);
+    pos.y += -v*time*cos(this->rectangle.getRotation()*0.0175);
+    if(CollisionCircleRectangle(pos.x+25, pos.y+25, this->r, 500, 500, 200, 200, v))
     {
         v = 0;
     }

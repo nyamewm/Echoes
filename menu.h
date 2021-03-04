@@ -57,18 +57,13 @@ void menu(sf::RenderWindow & window1) {
                             window.close();
                     }
                     window.clear();
-                    //window.setVerticalSyncEnabled(true);
-
-
-                    //a.draw();
-                    //b.draw();
 
                     time = clock.getElapsedTime().asMilliseconds();
                     clock.restart();
+
                     a.update(time);
                     b.update(time);
-                    //a.draw();
-                    //b.draw();
+
                     window.draw(a);
                     window.draw(b);
 
