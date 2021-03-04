@@ -1,18 +1,21 @@
 class Player {
     sf::RenderWindow* window;
     sf::RectangleShape rectangle;
+    sf::Texture texture;
+    const sf::Texture *pTexture = &texture;
     int x, y;
     int level;
 public:
     Player(sf::RenderWindow* window) {
+        texture.loadFromFile("images/a.png");
         this->level = 0;
         this->x = 100;
         this->y = 100;
         this->window = window;
-        this->rectangle.setSize(sf::Vector2f(50,50));
+        this->rectangle.setSize(sf::Vector2f(200,200));
         this->rectangle.setOrigin(25,25);
         this->rectangle.setPosition(this->x, this->y);
-
+        this->rectangle.setTexture(pTexture);
 
     }
     void draw() {
