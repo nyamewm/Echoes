@@ -1,3 +1,9 @@
+#define WWW sf::Keyboard::isKeyPressed(sf::Keyboard::W)
+#define AAA sf::Keyboard::isKeyPressed(sf::Keyboard::A)
+#define SSS sf::Keyboard::isKeyPressed(sf::Keyboard::S)
+#define DDD sf::Keyboard::isKeyPressed(sf::Keyboard::D)
+#define SPACE sf::Keyboard::isKeyPressed(sf::Keyboard::Space)
+
 bool CollisionCircleRectangle(float x1, float y1, float r, float x2, float y2, float l,float w)
 {
     if(((x1 > x2)&&(x1 < x2+l))
@@ -42,175 +48,192 @@ bool CollisionCircleRectangle(float x1, float y1, float r, float x2, float y2, f
     }
     return false;
 }
-class Entity {
+class Entity : public sf::Drawable {
 protected:
     sf::RenderWindow* window;
     sf::RectangleShape rectangle;
     float x, y;
     int angle;
-    virtual void update(float) {};
+public:
+    void update(float) {};
+    //virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 };
+
 class Static: public Entity {
 public:
-    Static(sf::RenderWindow* window)
-    {
-        this->x = 500;
-        this->y = 500;
-        this->window = window;
-        this->rectangle.setSize(sf::Vector2f(10,200));
-        this->rectangle.setOrigin(25,25);
-        this->rectangle.setPosition(this->x, this->y);
-        this->rectangle.setRotation(0);
-    }
-    void draw()
+    Static(sf::RenderWindow* window);
+    /*void draw()
     {
         this->window->draw(this->rectangle);
-    }
-    virtual void update(float) {}
+    }*/
+private:
+    void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 };
+
 class Dynamic: public Entity {
 public:
-    double v;
-    float acceleration;
-    float r;
-    virtual void update(float) {}
+    double v = 0;
+    float acceleration = 0;
+    float r = 0;
 };
+
 class Player: public Dynamic {
-    int level;
 public:
-    Player(sf::RenderWindow* window)
-    {
-        this->acceleration = 0.08;
-        this->r = 25;
-        this->level = 0;
-        this->x = 100;
-        this->y = 100;
-        this->v = 0;
-        this->window = window;
-        this->rectangle.setSize(sf::Vector2f(50,50));
-        this->rectangle.setOrigin(25,25);
-        this->rectangle.setPosition(this->x, this->y);
-        this->rectangle.setRotation(0);
-    }
-    void draw()
+    int level;
+    float vmax, vmin, vrot;
+    Player(sf::RenderWindow* window);
+    /*void draw()
     {
         this->window->draw(this->rectangle);
-    }
-    void update(float time) {
-        if(sf::Keyboard::isKeyPressed(sf::Keyboard::W)&sf::Keyboard::isKeyPressed(sf::Keyboard::D))
-        {
-            if(v < 0)
-                this->v = v+3*acceleration;
-            else if(v <= 5.92)
-                this->v = v+acceleration;
-            else
-                this->v = 6;
-            this->rectangle.rotate(2);
-        }
-        else if(sf::Keyboard::isKeyPressed(sf::Keyboard::W)&sf::Keyboard::isKeyPressed(sf::Keyboard::A))
-        {
-            if(v < 0)
-                this->v = v+3*acceleration;
-            else if(v <= 5.92)
-                this->v = v+acceleration;
-            else
-                this->v = 6;
-            this->rectangle.rotate(-2);
-        }
-        else if(sf::Keyboard::isKeyPressed(sf::Keyboard::S)&sf::Keyboard::isKeyPressed(sf::Keyboard::D))
-        {
-            if(v >= 3*acceleration)
-                this->v = v-3*acceleration;
-            else if(v > 0)
-                this->v = 0;
-            else if(v >= -2.92)
-                this->v = v-acceleration;
-            else
-                this->v = -3;
-            this->rectangle.rotate(2);
-        }
+    }*/
+    void update(float time);
+private:
+    void draw(sf::RenderTarget& target, sf::RenderStates states) const;
+};
 
-        else if(sf::Keyboard::isKeyPressed(sf::Keyboard::S)&sf::Keyboard::isKeyPressed(sf::Keyboard::A))
-        {
-            if(v >= 3*acceleration)
-                this->v = v-3*acceleration;
-            else if(v > 0)
-                this->v = 0;
-            else if(v >= -2.92)
-                this->v = v-acceleration;
-            else
-                this->v = -3;
-            this->rectangle.rotate(-2);
-        }
-        else if(sf::Keyboard::isKeyPressed(sf::Keyboard::W))
-        {
-            if(v < 0)
-                this->v = v+3*acceleration;
-            else if(v <= 5.92)
-                this->v = v+acceleration;
-            else
-                this->v = 6;
-        }
-
-        else 	if(sf::Keyboard::isKeyPressed(sf::Keyboard::S))
-        {
-            if(v >= 3*acceleration)
-                this->v = v-3*acceleration;
-            else if(v > 0)
-                this->v = 0;
-            else if(v >= -2.92)
-                this->v = v-acceleration;
-            else
-                this->v = -3;
-        }
-
-        else 	if(sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
-            if(v >= acceleration)
-                this->v = v-acceleration;
-            else if(v > 0)
-                this->v = 0;
-            else if(v >= -acceleration)
-                this->v = 0;
-            else
-                this->v = v+acceleration;
-            this->rectangle.rotate(2);
-        }
-        else 	if(sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
-            if(v >= acceleration)
-                this->v = v-acceleration;
-            else if(v > 0)
-                this->v = 0;
-            else if(v >= -acceleration)
-                this->v = 0;
-            else
-                this->v = v+acceleration;
-            this->rectangle.rotate(-2);
-        }
-        else 	if(sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) {
-            if(v >= 3*acceleration)
-                this->v = v-3*acceleration;
-            else if(v > 0)
-                this->v = 0;
-            else if(v >= -3*acceleration)
-                this->v = 0;
-            else
-                this->v = v+3*acceleration;
-        }
+Static::Static(sf::RenderWindow *window) {
+    this->x = 500;
+    this->y = 500;
+    this->window = window;
+    this->rectangle.setSize(sf::Vector2f(200,200));
+    this->rectangle.setOrigin(25,25);
+    this->rectangle.setPosition(this->x, this->y);
+    this->rectangle.setRotation(0);
+};
+void Static::draw(sf::RenderTarget &target, sf::RenderStates states) const  {
+    target.draw(rectangle, states);
+};
+Player::Player(sf::RenderWindow *window)
+{
+    this->acceleration = 0.001;
+    this->r = 25;
+    this->level = 0;
+    this->x = 100;
+    this->y = 100;
+    this->v = 0;
+    this->vmax = 0.3;
+    this->vmin = -0.15;
+    this->vrot = 0.15;
+    this->window = window;
+    this->rectangle.setSize(sf::Vector2f(50,50));
+    this->rectangle.setOrigin(25,25);
+    this->rectangle.setPosition(this->x, this->y);
+    this->rectangle.setRotation(0);
+};
+void Player::update(float time) {
+    if(WWW&DDD)
+    {
+        if(v < 0)
+            this->v = v+3*acceleration*time;
+        else if(v <= vmax-acceleration)
+            this->v = v+acceleration*time;
         else
-        {
-            if(v >= acceleration)
-                this->v = v-acceleration;
-            else if(v > 0)
-                this->v = 0;
-            else if(v >= -acceleration)
-                this->v = 0;
-            else
-                this->v = v+acceleration;
-            if(CollisionCircleRectangle(this->x+25, this->y+25, this->r, 500, 500, 10, 200))
-            {
-                v = 0;
-            }
-        }
-        this->rectangle.move(v*sin(this->rectangle.getRotation()*0.0175) ,-v*cos(this->rectangle.getRotation()*0.0175));
+            this->v = vmax;
+        this->rectangle.rotate(vrot*time);
     }
+    else if(WWW&AAA)
+    {
+        if(v < 0)
+            this->v = v+3*acceleration*time;
+        else if(v <= vmax-acceleration)
+            this->v = v+acceleration*time;
+        else
+            this->v = vmax;
+        this->rectangle.rotate(-vrot*time);
+    }
+    else if(SSS&DDD)
+    {
+        if(v >= 3*acceleration)
+            this->v = v-3*acceleration*time;
+        else if(v > 0)
+            this->v = 0;
+        else if(v >= vmin+acceleration)
+            this->v = v-acceleration*time;
+        else
+            this->v = vmin;
+        this->rectangle.rotate(vrot*time);
+    }
+    else if(SSS&AAA)
+    {
+        if(v >= 3*acceleration)
+            this->v = v-3*acceleration*time;
+        else if(v > 0)
+            this->v = 0;
+        else if(v >= vmin+acceleration)
+            this->v = v-acceleration*time;
+        else
+            this->v = vmin;
+        this->rectangle.rotate(-vrot*time);
+    }
+    else if(WWW)
+    {
+        if(v < 0)
+            this->v = v+3*acceleration*time;
+        else if(v <= vmax-acceleration)
+            this->v = v+acceleration*time;
+        else
+            this->v = vmax;
+    }
+    else 	if(SSS)
+    {
+        if(v >= 3*acceleration)
+            this->v = v-3*acceleration*time;
+        else if(v > 0)
+            this->v = 0;
+        else if(v >= vmin+acceleration)
+            this->v = v-acceleration*time;
+        else
+            this->v = vmin;
+    }
+    else 	if(DDD) {
+        if(v >= acceleration)
+            this->v = v-acceleration;
+        else if(v > 0)
+            this->v = 0;
+        else if(v >= -acceleration)
+            this->v = 0;
+        else
+            this->v = v+acceleration;
+        this->rectangle.rotate(vrot*time);
+    }
+    else 	if(AAA) {
+        if(v >= acceleration)
+            this->v = v-acceleration*time;
+        else if(v > 0)
+            this->v = 0;
+        else if(v >= -acceleration)
+            this->v = 0;
+        else
+            this->v = v+acceleration*time;
+        this->rectangle.rotate(-vrot*time);
+    }
+    else 	if(SPACE) {
+        if(v >= 3*acceleration)
+            this->v = v-3*acceleration*time;
+        else if(v > 0)
+            this->v = 0;
+        else if(v >= -3*acceleration)
+            this->v = 0;
+        else
+            this->v = v+3*acceleration*time;
+    }
+    else
+    {
+        if(v >= acceleration)
+            this->v = v-acceleration*time;
+        else if(v > 0)
+            this->v = 0;
+        else if(v >= -acceleration)
+            this->v = 0;
+        else
+            this->v = v+acceleration*time;
+    }
+    if(CollisionCircleRectangle(this->x+25, this->y+25, this->r, 500, 500, 200, 200))
+    {
+        v = 0;
+    }
+    this->rectangle.move(v*time*sin(this->rectangle.getRotation()*0.0175) ,-v*time*cos(this->rectangle.getRotation()*0.0175));
+};
+void Player::draw(sf::RenderTarget &target, sf::RenderStates states) const  {
+    target.draw(rectangle, states);
 };

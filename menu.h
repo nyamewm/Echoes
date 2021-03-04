@@ -46,6 +46,8 @@ void menu(sf::RenderWindow & window1) {
                 sf::RenderWindow window(sf::VideoMode(1000,1000), "Echoes");
                 Player a(&window);
                 Static b(&window);
+                sf::Clock clock;
+                float time;
                 while(window.isOpen())
                 {
                     sf::Event event;
@@ -55,25 +57,20 @@ void menu(sf::RenderWindow & window1) {
                             window.close();
                     }
                     window.clear();
-
-                    sf::Clock clock;
-                    float time;
-                    window.setVerticalSyncEnabled(true);
+                    //window.setVerticalSyncEnabled(true);
 
 
-                    a.draw();
-                    b.draw();
+                    //a.draw();
+                    //b.draw();
 
+                    time = clock.getElapsedTime().asMilliseconds();
                     clock.restart();
-                    time = clock.getElapsedTime().asMicroseconds();
                     a.update(time);
                     b.update(time);
-                    a.draw();
-                    b.draw();
-
-
-
-
+                    //a.draw();
+                    //b.draw();
+                    window.draw(a);
+                    window.draw(b);
 
                     window.display();
                 }
