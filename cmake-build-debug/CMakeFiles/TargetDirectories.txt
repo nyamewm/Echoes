@@ -1,3 +1,3 @@
-/home/alex/CLionProjects/Echoes/cmake-build-debug/CMakeFiles/edit_cache.dir
-/home/alex/CLionProjects/Echoes/cmake-build-debug/CMakeFiles/rebuild_cache.dir
-/home/alex/CLionProjects/Echoes/cmake-build-debug/CMakeFiles/Echoes.dir
+C:/Users/Admin/Documents/GitHub/Echoes/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/Admin/Documents/GitHub/Echoes/cmake-build-debug/CMakeFiles/Echoes.dir
+C:/Users/Admin/Documents/GitHub/Echoes/cmake-build-debug/CMakeFiles/rebuild_cache.dir
