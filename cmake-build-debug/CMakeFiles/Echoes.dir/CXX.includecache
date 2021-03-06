@@ -11,6 +11,8 @@
 /home/alex/CLionProjects/Echoes/main.cpp
 iostream
 -
+cmath
+-
 SFML/Graphics.hpp
 -
 menu.h

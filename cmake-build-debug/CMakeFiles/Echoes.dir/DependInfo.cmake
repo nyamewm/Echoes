@@ -4,16 +4,12 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
-  "C:/Users/Admin/Documents/GitHub/Echoes/main.cpp" "C:/Users/Admin/Documents/GitHub/Echoes/cmake-build-debug/CMakeFiles/Echoes.dir/main.cpp.obj"
+  "/home/alex/CLionProjects/Echoes/main.cpp" "/home/alex/CLionProjects/Echoes/cmake-build-debug/CMakeFiles/Echoes.dir/main.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 
 # The include file search paths:
 set(CMAKE_CXX_TARGET_INCLUDE_PATH
-  "../headers"
-  "/usr/include"
-  "c:/SFML/include"
-  "C:/SFML/include"
   )
 
 # Targets to which this target links.

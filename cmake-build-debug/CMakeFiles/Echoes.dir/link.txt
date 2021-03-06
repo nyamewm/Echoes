@@ -1,3 +1,1 @@
-"C:\Program Files\JetBrains\CLion 2020.3.2\bin\cmake\win\bin\cmake.exe" -E rm -f CMakeFiles\Echoes.dir/objects.a
-C:\PROGRA~1\MINGW-~1\X86_64~1.0-P\mingw64\bin\ar.exe cr CMakeFiles\Echoes.dir/objects.a @CMakeFiles\Echoes.dir\objects1.rsp
-C:\PROGRA~1\MINGW-~1\X86_64~1.0-P\mingw64\bin\G__~1.EXE -g   -Wl,--whole-archive CMakeFiles\Echoes.dir/objects.a -Wl,--no-whole-archive  -o Echoes.exe -Wl,--out-implib,libEchoes.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles\Echoes.dir\linklibs.rsp
+/usr/bin/c++  -g   CMakeFiles/Echoes.dir/main.cpp.o  -o Echoes  /usr/lib/x86_64-linux-gnu/libsfml-graphics.so.2.5.1 /usr/lib/x86_64-linux-gnu/libsfml-audio.so.2.5.1 /usr/lib/x86_64-linux-gnu/libsfml-window.so.2.5.1 /usr/lib/x86_64-linux-gnu/libsfml-system.so.2.5.1 
