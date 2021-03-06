@@ -101,7 +101,7 @@ private:
 
 class Dynamic: public Entity {
 public:
-    sf::Vector2f v;
+    float v;
     float acceleration;
     float r;
 private:
@@ -113,7 +113,7 @@ float DotProduct(sf::Vector2f a, sf::Vector2f b)
     return (a.x*b.x + a.y*b.y);
 }
 
-void ResolveCollision(Dynamic A, Dynamic B)
+/*void ResolveCollision(Dynamic A, Dynamic B)
 {
     // Вычисляем относительную скорость
     sf::Vector2f rv = B.v - A.v;
@@ -139,7 +139,7 @@ void ResolveCollision(Dynamic A, Dynamic B)
     Vec2 impulse = j * normal
     A.velocity -= 1 / A.mass * impulse
     B.velocity += 1 / B.mass * impulse
-}
+}*/
 
 class Player: public Dynamic {
 public:
