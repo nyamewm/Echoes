@@ -17,6 +17,8 @@ SFML/Graphics.hpp
 -
 menu.h
 /home/alex/CLionProjects/Echoes/menu.h
+SFML/System/Clock.hpp
+-
 
 /home/alex/CLionProjects/Echoes/map.h
 iostream
