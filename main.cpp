@@ -1,9 +1,9 @@
 #include <iostream>
-#include <math.h>
 #include <SFML/Graphics.hpp>
-#include "game.h"
+#include <vector>
 #include "menu.h"
-#include <SFML/System/Clock.hpp>
+#include "game.h"
+#include "map.h"
 
 
 int main () {

@@ -1,3 +1,5 @@
+#include "game.h"
+
 void menu(sf::RenderWindow & window1) {
 
     std::vector <int> m1 {150, 250};
@@ -45,7 +47,6 @@ void menu(sf::RenderWindow & window1) {
                 window1.close();
                 sf::RenderWindow window(sf::VideoMode(1000,1000), "Echoes");
                 Player a(&window);
-                Static b(&window);
                 sf::Clock clock;
                 float time;
                 while(window.isOpen())
@@ -62,10 +63,8 @@ void menu(sf::RenderWindow & window1) {
                     clock.restart();
 
                     a.update(time);
-                    b.update(time);
 
                     window.draw(a);
-                    window.draw(b);
 
                     window.display();
                 }

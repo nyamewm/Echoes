@@ -1,4 +1,4 @@
-class Player {
+class Player: public sf:: Drawable {
     sf::RenderWindow* window;
     sf::RectangleShape rectangle;
     sf::Texture texture;
