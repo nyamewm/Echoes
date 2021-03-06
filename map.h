@@ -126,7 +126,6 @@ int run(sf::RenderWindow* window){
         clock.restart();
         time = clock.getElapsedTime().asMicroseconds();
         a.update(time);
-        a.draw();
 
 
         window->clear();
