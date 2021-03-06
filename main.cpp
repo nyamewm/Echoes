@@ -2,6 +2,7 @@
 #include <SFML/Graphics.hpp>
 #include "game.h"
 #include "menu.h"
+#include <SFML/System/Clock.hpp>
 
 
 int main () {
