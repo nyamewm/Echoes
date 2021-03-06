@@ -1,3 +1,4 @@
+#include "map.h"
 void menu(sf::RenderWindow & window1) {
 
     std::vector <int> m1 {150, 250};
@@ -31,20 +32,20 @@ void menu(sf::RenderWindow & window1) {
         if (sf::IntRect(m3[0], m3[1], 300, 50).contains(sf::Mouse::getPosition(window1))) { menu3.setColor(sf::Color::Yellow); menuNum = 3; }
 
         sf::Event event;
-        while(window1.pollEvent(event))
-        {
-            if(event.type == sf::Event::Closed){
+        while (window1.pollEvent(event)) {
+            if (event.type == sf::Event::Closed) {
                 window1.close();
                 isMenu = false;
             }
         }
+
         if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
         {
             if (menuNum == 1) {
                 isMenu = false;
                 window1.close();
-                sf::RenderWindow window(sf::VideoMode(1000,1000), "Echoes");
-                Player a(&window);
+                sf::RenderWindow window(sf::VideoMode(512, 256), "Tilemap");
+
                 while(window.isOpen())
                 {
                     sf::Event event;
@@ -53,24 +54,8 @@ void menu(sf::RenderWindow & window1) {
                         if(event.type == sf::Event::Closed)
                             window.close();
                     }
-                    window.clear();
 
-                    sf::Clock clock;
-                    float time;
-                    window.setVerticalSyncEnabled(true);
-
-
-                    a.draw();
-
-                    clock.restart();
-                    time = clock.getElapsedTime().asMicroseconds();
-                    a.update(time);
-                    a.draw();
-
-
-
-
-
+                    run(&window);
                     window.display();
                 }
 
@@ -89,5 +74,4 @@ void menu(sf::RenderWindow & window1) {
 
         window1.display();
     }
-    ////////////////////////////////////////////////////
 }

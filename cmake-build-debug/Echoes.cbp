@@ -85,6 +85,9 @@
 		<Unit filename="/home/alex/CLionProjects/Echoes/main.cpp">
 			<Option target="Echoes"/>
 		</Unit>
+		<Unit filename="/home/alex/CLionProjects/Echoes/menu.h">
+			<Option target="Echoes"/>
+		</Unit>
 		<Unit filename="/home/alex/CLionProjects/Echoes/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\"/>
 		</Unit>

@@ -13,10 +13,18 @@ iostream
 -
 SFML/Graphics.hpp
 -
-game.h
-/home/alex/CLionProjects/Echoes/game.h
 menu.h
 /home/alex/CLionProjects/Echoes/menu.h
 
+/home/alex/CLionProjects/Echoes/map.h
+iostream
+-
+SFML/Graphics.hpp
+-
+game.h
+/home/alex/CLionProjects/Echoes/game.h
+
 /home/alex/CLionProjects/Echoes/menu.h
+map.h
+/home/alex/CLionProjects/Echoes/map.h
 
