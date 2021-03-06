@@ -131,7 +131,7 @@ int run(sf::RenderWindow* window){
         window->clear();
 
         window->draw(map);
-        a.draw();
+        window->draw(a);
         window->setView(minimapView);
         window->setView(view);
 

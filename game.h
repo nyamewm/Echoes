@@ -146,29 +146,20 @@ float DotProduct(sf::Vector2f a, sf::Vector2f b)
 }*/
 
 class Player: public Dynamic {
+    sf::Texture texture;
+    const sf::Texture *pTexture = &texture;
 public:
-    Player(sf::RenderWindow* window) {
-        texture.loadFromFile("images/a.png");
-        this->level = 0;
-        this->x = 100;
-        this->y = 100;
-        this->v = 0;
-        this->window = window;
-        this->rectangle.setSize(sf::Vector2f(200,200));
-        this->rectangle.setOrigin(25,25);
-        this->rectangle.setPosition(this->x, this->y);
-        this->rectangle.setTexture(pTexture);
-        this->rectangle.setRotation(0);
+    Player(sf::RenderWindow* window);
 
     int level;
     sf::Vector2f pos;
     float vmax, vmin, vrot;
-    Player(sf::RenderWindow* window);
     /*void draw()
     {
         window->draw(rectangle);
     }*/
     void update(float time);
+
 private:
     void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 };
@@ -177,7 +168,7 @@ Static::Static(sf::RenderWindow *window) {
     window = window;
     rectangle.setSize(sf::Vector2f(200,200));
     rectangle.setOrigin(25,25);
-    rectangle.setPosition(500,500);
+    rectangle.setPosition(300,300);
     rectangle.setRotation(0);
 };
 void Static::draw(sf::RenderTarget &target, sf::RenderStates states) const  {
@@ -188,18 +179,20 @@ void Dynamic::draw(sf::RenderTarget &target, sf::RenderStates states) const  {
 };
 Player::Player(sf::RenderWindow *window)
 {
-    acceleration = 0.001;
+    texture.loadFromFile("images/a.png");
+    acceleration = 100;
     r = 25;
     level = 0;
     v = 0;
     vmax = 0.3;
     vmin = -0.15;
-    vrot = 0.15;
+    vrot = 15;
     window = window;
     rectangle.setSize(sf::Vector2f(50,50));
     rectangle.setOrigin(25,25);
     rectangle.setPosition(100, 100);
     rectangle.setRotation(0);
+    rectangle.setTexture(pTexture);
 };
 void Player::update(float time) {
     if(WWW&DDD)

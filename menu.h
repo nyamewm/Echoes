@@ -44,10 +44,9 @@ void menu(sf::RenderWindow & window1) {
             if (menuNum == 1) {
                 isMenu = false;
                 window1.close();
-                sf::RenderWindow window(sf::VideoMode(512, 256), "Tilemap");
+                sf::RenderWindow window(sf::VideoMode(1000, 1000), "Echoes");
 
-                sf::RenderWindow window(sf::VideoMode(1000,1000), "Echoes");
-                Player a(&window);
+
                 Static b(&window);
                 sf::Clock clock;
                 float time;
@@ -61,16 +60,12 @@ void menu(sf::RenderWindow & window1) {
                     }
 
                     run(&window);
-                    window.clear();
+                  //  window.clear();
 
-                    time = clock.getElapsedTime().asMilliseconds();
-                    clock.restart();
 
-                    a.update(time);
-                    b.update(time);
+                   // b.update(time);
 
-                    window.draw(a);
-                    window.draw(b);
+                //    window.draw(b);
 
                     window.display();
                 }
