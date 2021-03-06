@@ -66,7 +66,6 @@ private:
 
 int run(sf::RenderWindow* window){
     // create the window
-    Player a(window);
     sf::View view(sf::FloatRect(0.f, 0.f, 512.f, 256.f));
     sf::View minimapView;
     // define the level with an array of tile indices
@@ -87,10 +86,6 @@ int run(sf::RenderWindow* window){
     if (!map.load("images/tileset.png", sf::Vector2u(32, 32), level, 16, 8))
         return -1;
 
-    // run the main loop
-    while (window->isOpen())
-    {
-        // handle events
         sf::Event event;
         while (window->pollEvent(event))
         {
@@ -112,31 +107,11 @@ int run(sf::RenderWindow* window){
             {
                 view.rotate(-5);
             }
-
-
-
         }
         minimapView.setViewport(sf::FloatRect(0.75f, 0.f, 0.25f, 0.25f));
-
-
-        sf::Clock clock;
-        float time;
-        window->setVerticalSyncEnabled(true);
-
-        clock.restart();
-        time = clock.getElapsedTime().asMicroseconds();
-        a.update(time);
-
-
-        window->clear();
-
         window->draw(map);
-        window->draw(a);
         window->setView(minimapView);
         window->setView(view);
-
-        window->display();
-    }
 }
 
 

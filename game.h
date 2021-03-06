@@ -180,13 +180,13 @@ void Dynamic::draw(sf::RenderTarget &target, sf::RenderStates states) const  {
 Player::Player(sf::RenderWindow *window)
 {
     texture.loadFromFile("images/a.png");
-    acceleration = 100;
+    acceleration = 0.001;
     r = 25;
     level = 0;
     v = 0;
     vmax = 0.3;
     vmin = -0.15;
-    vrot = 15;
+    vrot = 0.15;
     window = window;
     rectangle.setSize(sf::Vector2f(50,50));
     rectangle.setOrigin(25,25);
