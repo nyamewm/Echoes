@@ -82,6 +82,12 @@
 				</MakeCommands>
 			</Target>
 		</Build>
+		<Unit filename="/home/alex/CLionProjects/Echoes/cmake-build-debug/images/asf.cpp">
+			<Option target="Echoes"/>
+		</Unit>
+		<Unit filename="/home/alex/CLionProjects/Echoes/cmake-build-debug/images/asf.h">
+			<Option target="Echoes"/>
+		</Unit>
 		<Unit filename="/home/alex/CLionProjects/Echoes/main.cpp">
 			<Option target="Echoes"/>
 		</Unit>

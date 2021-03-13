@@ -1,4 +1,5 @@
 file(REMOVE_RECURSE
+  "CMakeFiles/Echoes.dir/images/asf.cpp.o"
   "CMakeFiles/Echoes.dir/main.cpp.o"
   "Echoes"
   "Echoes.pdb"

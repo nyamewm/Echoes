@@ -60,7 +60,7 @@ void menu(sf::RenderWindow & window1) {
                     {
                         if(event.type == sf::Event::Closed)
                             window.close();
-                        if(sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) {
+                            if(sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) {
                             sf::RenderWindow window2(sf::VideoMode(740, 500), "Echoes|pause");
                             menuin(window2);
                         }
