@@ -7,7 +7,7 @@
 
 
 int main () {
-    sf::RenderWindow window1(sf::VideoMode(740, 500), "Menu");
+    sf::RenderWindow window1(sf::VideoMode(1920, 1020), "Menu");
     menu(window1);
     return 0;
 }
