@@ -47,10 +47,12 @@ void menuin(sf::RenderWindow & window2) {
         if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
             if (menuNum == 1) isMenuin = false;
         }
+        window2.clear();
+
+        window2.draw(menuBg);
         window2.draw(menu1);
         window2.draw(menu2);
         window2.draw(menu3);
-        window2.draw(menuBg);
 
         window2.display();
     }

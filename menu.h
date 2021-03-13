@@ -47,7 +47,6 @@ void menu(sf::RenderWindow & window1) {
                 window1.close();
                 sf::RenderWindow window(sf::VideoMode(740, 500), "Echoes");
                 Player a(&window);
-                Static b(&window);
                 sf::Clock clock;
                 float time;
                 while(window.isOpen())
@@ -61,15 +60,17 @@ void menu(sf::RenderWindow & window1) {
                     {
                         if(event.type == sf::Event::Closed)
                             window.close();
-                        if(sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
-                            menuin(window);
+                        if(sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) {
+                            sf::RenderWindow window2(sf::VideoMode(740, 500), "Echoes|pause");
+                            menuin(window2);
+                        }
                     }
 
                     sf::Clock clock;
                     float time;
                     clock.restart();
                     time = clock.getElapsedTime().asMicroseconds();
-                    
+
                     a.update(time);
 
                     window.draw(a);
