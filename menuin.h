@@ -1,8 +1,8 @@
 void menuin(sf::RenderWindow & window2) {
 
-    std::vector<int> m1{50, 50};
-    std::vector<int> m2{50, 100};
-    std::vector<int> m3{50, 150};
+    std::vector <int> m1 {150, 250};
+    std::vector <int> m2 {150, 300};
+    std::vector <int> m3 {150, 350};
 
     sf::Texture menuTexture1, menuTexture2, menuTexture3, aboutTexture, menuBackground;
     menuTexture1.loadFromFile("images/111.png");

@@ -52,6 +52,10 @@ void menu(sf::RenderWindow & window1) {
                 float time;
                 while(window.isOpen())
                 {
+
+                    window.clear();
+                    run(&window);
+
                     sf::Event event;
                     while(window.pollEvent(event))
                     {
@@ -65,16 +69,10 @@ void menu(sf::RenderWindow & window1) {
                     float time;
                     clock.restart();
                     time = clock.getElapsedTime().asMicroseconds();
-
-                    window.clear();
-
-                    run(&window);
-
+                    
                     a.update(time);
-                    b.update(time);
 
                     window.draw(a);
-                    window.draw(b);
 
                     window.display();
                 }
