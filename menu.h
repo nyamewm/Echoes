@@ -1,4 +1,5 @@
 #include "map.h"
+#include "menuin.h"
 void menu(sf::RenderWindow & window1) {
 
     std::vector <int> m1 {150, 250};
@@ -56,6 +57,8 @@ void menu(sf::RenderWindow & window1) {
                     {
                         if(event.type == sf::Event::Closed)
                             window.close();
+                        if(sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
+                            menuin(window);
                     }
 
                     sf::Clock clock;
