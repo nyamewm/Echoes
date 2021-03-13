@@ -45,7 +45,7 @@ void menu(sf::RenderWindow & window1) {
             if (menuNum == 1) {
                 isMenu = false;
                 window1.close();
-                sf::RenderWindow window(sf::VideoMode(1000, 1000), "Echoes");
+                sf::RenderWindow window(sf::VideoMode(740, 500), "Echoes");
                 Player a(&window);
                 Static b(&window);
                 sf::Clock clock;
