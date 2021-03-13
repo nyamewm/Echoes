@@ -94,12 +94,12 @@ clean: CMakeFiles/Echoes.dir/clean
 CMakeFiles/Echoes.dir/all:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Echoes.dir/build.make CMakeFiles/Echoes.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Echoes.dir/build.make CMakeFiles/Echoes.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/alex/CLionProjects/Echoes/cmake-build-debug/CMakeFiles --progress-num=1,2,3 "Built target Echoes"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/alex/CLionProjects/Echoes/cmake-build-debug/CMakeFiles --progress-num=1,2 "Built target Echoes"
 .PHONY : CMakeFiles/Echoes.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/Echoes.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/alex/CLionProjects/Echoes/cmake-build-debug/CMakeFiles 3
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/alex/CLionProjects/Echoes/cmake-build-debug/CMakeFiles 2
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/Echoes.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/alex/CLionProjects/Echoes/cmake-build-debug/CMakeFiles 0
 .PHONY : CMakeFiles/Echoes.dir/rule

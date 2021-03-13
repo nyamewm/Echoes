@@ -6,33 +6,3 @@
 
 #IncludeRegexTransform: 
 
-/home/alex/CLionProjects/Echoes/game.h
-
-/home/alex/CLionProjects/Echoes/main.cpp
-iostream
--
-cmath
--
-SFML/Graphics.hpp
--
-menu.h
-/home/alex/CLionProjects/Echoes/menu.h
-SFML/System/Clock.hpp
--
-
-/home/alex/CLionProjects/Echoes/map.h
-iostream
--
-SFML/Graphics.hpp
--
-game.h
-/home/alex/CLionProjects/Echoes/game.h
-
-/home/alex/CLionProjects/Echoes/menu.h
-map.h
-/home/alex/CLionProjects/Echoes/map.h
-menuin.h
-/home/alex/CLionProjects/Echoes/menuin.h
-
-/home/alex/CLionProjects/Echoes/menuin.h
-

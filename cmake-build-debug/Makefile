@@ -143,33 +143,6 @@ Echoes/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Echoes.dir/build.make CMakeFiles/Echoes.dir/build
 .PHONY : Echoes/fast
 
-images/asf.o: images/asf.cpp.o
-
-.PHONY : images/asf.o
-
-# target to build an object file
-images/asf.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Echoes.dir/build.make CMakeFiles/Echoes.dir/images/asf.cpp.o
-.PHONY : images/asf.cpp.o
-
-images/asf.i: images/asf.cpp.i
-
-.PHONY : images/asf.i
-
-# target to preprocess a source file
-images/asf.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Echoes.dir/build.make CMakeFiles/Echoes.dir/images/asf.cpp.i
-.PHONY : images/asf.cpp.i
-
-images/asf.s: images/asf.cpp.s
-
-.PHONY : images/asf.s
-
-# target to generate assembly for a file
-images/asf.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Echoes.dir/build.make CMakeFiles/Echoes.dir/images/asf.cpp.s
-.PHONY : images/asf.cpp.s
-
 main.o: main.cpp.o
 
 .PHONY : main.o
@@ -206,9 +179,6 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... Echoes"
-	@echo "... images/asf.o"
-	@echo "... images/asf.i"
-	@echo "... images/asf.s"
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"
