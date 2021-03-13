@@ -1,5 +1,7 @@
 #include "map.h"
 #include "menuin.h"
+
+
 void menu(sf::RenderWindow & window1) {
 
     std::vector <int> m1 {150, 250};
@@ -47,13 +49,25 @@ void menu(sf::RenderWindow & window1) {
                 window1.close();
                 sf::RenderWindow window(sf::VideoMode(740, 500), "Echoes");
                 Player a(&window);
+
                 sf::Clock clock;
-                float time;
+                float timer = 0, delay = 0.03;
+
+
                 while(window.isOpen())
                 {
+                    float time = clock.getElapsedTime().asSeconds();
+                    clock.restart();
+                    timer += time;
 
-                    window.clear();
-                    run(&window);
+                    if (timer > delay) {
+                        timer = 0;
+                        window.clear();
+                        run(&window);
+                        window.draw(a);
+                        window.display();
+                    }
+
 
                     sf::Event event;
                     while(window.pollEvent(event))
@@ -66,16 +80,11 @@ void menu(sf::RenderWindow & window1) {
                         }
                     }
 
-                    sf::Clock clock;
-                    float time;
-                    clock.restart();
-                    time = clock.getElapsedTime().asMicroseconds();
-
-                    a.update(time);
-
-                    window.draw(a);
-
-                    window.display();
+                    sf::Clock clock1;
+                    float time1;
+                    clock1.restart();
+                    time1 = clock1.getElapsedTime().asMicroseconds();
+                    a.update(time1);
                 }
 
             }
