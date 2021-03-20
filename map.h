@@ -67,10 +67,11 @@ private:
 int run(sf::RenderWindow* window){
     // create the window
     sf::View view(sf::FloatRect(0.f, 0.f, 512.f, 256.f));
-    sf::View minimapView;
+    sf::View minimapView(sf::FloatRect(0.f, 0.f, 128.f, 64.f));
     // define the level with an array of tile indices
     const int level[] =
             {
+                    0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
                     0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
                     0, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 2, 0, 0, 0, 0,
                     1, 1, 0, 0, 0, 0, 0, 0, 3, 3, 3, 3, 3, 3, 3, 3,

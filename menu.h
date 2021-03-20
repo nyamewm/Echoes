@@ -2,6 +2,7 @@
 #include "menuin.h"
 
 
+
 void menu(sf::RenderWindow & window1) {
 
     std::vector <int> m1 {150, 250};
@@ -52,6 +53,9 @@ void menu(sf::RenderWindow & window1) {
 
                 sf::Clock clock;
                 float timer = 0, delay = 0.03;
+                sf::View observation;
+                observation.setCenter(sf::Vector2f(100.f, 100.f));
+                observation.setSize(sf::Vector2f(200.f, 200.f));
 
 
                 while(window.isOpen())
@@ -62,9 +66,14 @@ void menu(sf::RenderWindow & window1) {
 
                     if (timer > delay) {
                         timer = 0;
-                        window.clear();
+                        window.clear(); // рисуется всё, кроме карты
                         run(&window);
+
+
+
                         window.draw(a);
+                        observation.setCenter(a.pos);
+                        window.setView(observation);
                         window.display();
                     }
 

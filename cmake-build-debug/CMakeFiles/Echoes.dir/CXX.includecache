@@ -6,9 +6,13 @@
 
 #IncludeRegexTransform: 
 
-/home/ann/CLionProjects/Echoes/game.h
+/home/ilya/CLionProjects/Echoes/game.h
+SFML/Graphics.hpp
+-
+thread
+-
 
-/home/ann/CLionProjects/Echoes/main.cpp
+/home/ilya/CLionProjects/Echoes/main.cpp
 iostream
 -
 cmath
@@ -16,23 +20,23 @@ cmath
 SFML/Graphics.hpp
 -
 menu.h
-/home/ann/CLionProjects/Echoes/menu.h
+/home/ilya/CLionProjects/Echoes/menu.h
 SFML/System/Clock.hpp
 -
 
-/home/ann/CLionProjects/Echoes/map.h
+/home/ilya/CLionProjects/Echoes/map.h
 iostream
 -
 SFML/Graphics.hpp
 -
 game.h
-/home/ann/CLionProjects/Echoes/game.h
+/home/ilya/CLionProjects/Echoes/game.h
 
-/home/ann/CLionProjects/Echoes/menu.h
+/home/ilya/CLionProjects/Echoes/menu.h
 map.h
-/home/ann/CLionProjects/Echoes/map.h
+/home/ilya/CLionProjects/Echoes/map.h
 menuin.h
-/home/ann/CLionProjects/Echoes/menuin.h
+/home/ilya/CLionProjects/Echoes/menuin.h
 
-/home/ann/CLionProjects/Echoes/menuin.h
+/home/ilya/CLionProjects/Echoes/menuin.h
 

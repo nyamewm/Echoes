@@ -3,6 +3,10 @@
 #define SSS sf::Keyboard::isKeyPressed(sf::Keyboard::S)
 #define DDD sf::Keyboard::isKeyPressed(sf::Keyboard::D)
 #define SPACE sf::Keyboard::isKeyPressed(sf::Keyboard::Space)
+#include <SFML/Graphics.hpp>
+#include<thread>
+
+
 
 struct AABB
         /*Ограничивающий прямоугольник, выровненный по координатным осям (Axis Aligned Bounding Box, AABB)
@@ -83,6 +87,8 @@ public:
     sf::RenderWindow* window;
     sf::RectangleShape rectangle;
     sf::Texture texture;
+
+
     const sf::Texture *pTexture = &texture;
     int x, y;
     int level;
@@ -108,6 +114,7 @@ public:
     float v;
     float acceleration;
     float r;
+
 private:
     void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 };
@@ -151,6 +158,8 @@ class Player: public Dynamic {
 public:
     Player(sf::RenderWindow* window);
 
+
+
     int level;
     sf::Vector2f pos;
     float vmax, vmin, vrot;
@@ -162,6 +171,7 @@ public:
 
 private:
     void draw(sf::RenderTarget& target, sf::RenderStates states) const;
+
 };
 
 Static::Static(sf::RenderWindow *window) {
@@ -173,12 +183,16 @@ Static::Static(sf::RenderWindow *window) {
 };
 void Static::draw(sf::RenderTarget &target, sf::RenderStates states) const  {
     target.draw(rectangle, states);
+
 };
 void Dynamic::draw(sf::RenderTarget &target, sf::RenderStates states) const  {
     target.draw(rectangle, states);
+
 };
-Player::Player(sf::RenderWindow *window)
+Player::Player(sf::RenderWindow* window)
 {
+
+
     texture.loadFromFile("images/a.png");
     acceleration = 0.001;
     r = 25;
@@ -193,6 +207,8 @@ Player::Player(sf::RenderWindow *window)
     rectangle.setPosition(100, 100);
     rectangle.setRotation(0);
     rectangle.setTexture(pTexture);
+
+
 };
 void Player::update(float time) {
     if(WWW&DDD)
@@ -305,12 +321,21 @@ void Player::update(float time) {
     pos = rectangle.getPosition();
     pos.x += v*time*sin(rectangle.getRotation()*0.0175);
     pos.y += -v*time*cos(rectangle.getRotation()*0.0175);
+    //observation.setCenter(pos);
+
     if(CollisionCircleRectangle(pos.x+25, pos.y+25, r, 500, 500, 200, 200, v))
     {
         v = 0;
     }
     rectangle.move(v*time*sin(rectangle.getRotation()*0.0175) ,-v*time*cos(rectangle.getRotation()*0.0175));
+   // window->setView(observation);
+
+
+
 };
 void Player::draw(sf::RenderTarget &target, sf::RenderStates states) const  {
+
+
     target.draw(rectangle, states);
+
 };
