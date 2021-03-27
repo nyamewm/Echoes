@@ -1,4 +1,4 @@
-void menuin(sf::RenderWindow & window2) {
+void menuin(sf::RenderWindow & window2, bool & isMenu, sf::RenderWindow & window1) {
 
     std::vector <int> m1 {150, 250};
     std::vector <int> m2 {150, 300};
@@ -46,6 +46,11 @@ void menuin(sf::RenderWindow & window2) {
 
         if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
             if (menuNum == 1) isMenuin = false;
+            if (menuNum == 3) {
+                isMenuin = false;
+                window1.close();
+                isMenu = false;
+            }
         }
         window2.clear();
 
