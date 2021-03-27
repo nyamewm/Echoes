@@ -194,7 +194,7 @@ Player::Player(sf::RenderWindow* window)
 
 
     texture.loadFromFile("images/a.png");
-    acceleration = 0.001;
+    acceleration = 0.01;
     r = 25;
     level = 0;
     v = 0;
@@ -321,14 +321,14 @@ void Player::update(float time) {
     pos = rectangle.getPosition();
     pos.x += v*time*sin(rectangle.getRotation()*0.0175);
     pos.y += -v*time*cos(rectangle.getRotation()*0.0175);
-    //observation.setCenter(pos);
+
 
     if(CollisionCircleRectangle(pos.x+25, pos.y+25, r, 500, 500, 200, 200, v))
     {
         v = 0;
     }
     rectangle.move(v*time*sin(rectangle.getRotation()*0.0175) ,-v*time*cos(rectangle.getRotation()*0.0175));
-   // window->setView(observation);
+
 
 
 

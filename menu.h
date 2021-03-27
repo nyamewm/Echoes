@@ -54,27 +54,37 @@ void menu(sf::RenderWindow & window1) {
                 sf::Clock clock;
                 float timer = 0, delay = 0.03;
                 sf::View observation;
-                observation.setCenter(sf::Vector2f(100.f, 100.f));
+
                 observation.setSize(sf::Vector2f(200.f, 200.f));
 
 
                 while(window.isOpen())
                 {
+
                     float time = clock.getElapsedTime().asSeconds();
                     clock.restart();
                     timer += time;
 
+                    sf::Clock clock1;
+                    float time1;
+                    clock1.restart();
+                    time1 = clock1.getElapsedTime().asMicroseconds();
+
+                    a.update(1*time1);
                     if (timer > delay) {
                         timer = 0;
                         window.clear(); // рисуется всё, кроме карты
                         run(&window);
 
 
-
-                        window.draw(a);
                         observation.setCenter(a.pos);
                         window.setView(observation);
+                        window.draw(a);
+
                         window.display();
+
+
+
                     }
 
 
@@ -89,11 +99,7 @@ void menu(sf::RenderWindow & window1) {
                         }
                     }
 
-                    sf::Clock clock1;
-                    float time1;
-                    clock1.restart();
-                    time1 = clock1.getElapsedTime().asMicroseconds();
-                    a.update(time1);
+
                 }
 
             }
