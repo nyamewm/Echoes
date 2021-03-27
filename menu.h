@@ -63,6 +63,8 @@ void menu(sf::RenderWindow & window1) {
                     float time = clock.getElapsedTime().asSeconds();
                     clock.restart();
                     timer += time;
+                    float time1 = clock.getElapsedTime().asMicroseconds();
+                    a.update(time1);
 
                     if (timer > delay) {
                         timer = 0;
@@ -89,11 +91,7 @@ void menu(sf::RenderWindow & window1) {
                         }
                     }
 
-                    sf::Clock clock1;
-                    float time1;
-                    clock1.restart();
-                    time1 = clock1.getElapsedTime().asMicroseconds();
-                    a.update(time1);
+
                 }
 
             }
