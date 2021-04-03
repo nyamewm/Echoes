@@ -9,11 +9,11 @@
 
 
 struct AABB
-        /*Ограничивающий прямоугольник, выровненный по координатным осям (Axis Aligned Bounding Box, AABB)
-         * — это прямоугольник, четыре оси которого выровнены относительно системы координат, в которой он
-         * находится. Это значит, что прямоугольник не может вращаться и всегда находится под углом в 90
-         * градусов (обычно выровнен относительно экрана). Обычно его называют «ограничивающим прямоугольником»,
-         * потому что AABB используются для ограничения других, более сложных форм.*/
+    /*Ограничивающий прямоугольник, выровненный по координатным осям (Axis Aligned Bounding Box, AABB)
+     * — это прямоугольник, четыре оси которого выровнены относительно системы координат, в которой он
+     * находится. Это значит, что прямоугольник не может вращаться и всегда находится под углом в 90
+     * градусов (обычно выровнен относительно экрана). Обычно его называют «ограничивающим прямоугольником»,
+     * потому что AABB используются для ограничения других, более сложных форм.*/
 {
     sf::Vector2f min;
     sf::Vector2f max;
@@ -47,12 +47,12 @@ bool CollisionCircleRectangle(float x1, float y1, float r, float x2, float y2, f
     float b = -2*y1;
     float c = pow(y1, 2) + pow((x2-x1), 2) - pow(r, 2);
     double D = pow(b, 2) - 4*c;
-            if(D >= 0) {
-                float y3 = (-b + sqrt(D)) / 2;
-                float y4 = (-b - sqrt(D)) / 2;
-                if(((y3 > y2)&&(y3 < y2 + w))||((y4 > y2)&&(y4 < y2 + w)))
-                    return true;
-            }
+    if(D >= 0) {
+        float y3 = (-b + sqrt(D)) / 2;
+        float y4 = (-b - sqrt(D)) / 2;
+        if(((y3 > y2)&&(y3 < y2 + w))||((y4 > y2)&&(y4 < y2 + w)))
+            return true;
+    }
     b = -2*y1;
     c = pow(y1, 2) + pow((x2+l-x1), 2) - pow(r, 2);
     D = pow(b, 2) - 4*c;
@@ -128,24 +128,18 @@ float DotProduct(sf::Vector2f a, sf::Vector2f b)
 {
     // Вычисляем относительную скорость
     sf::Vector2f rv = B.v - A.v;
-
     sf::Vector2f normal;
     normal.x = (B.position.x - A.position.x)/();
-
     // Вычисляем относительную скорость относительно направления нормали
     float velAlongNormal = DotProduct(rv, normal)
-
     // Не выполняем вычислений, если скорости разделены
     if(velAlongNormal > 0)
         return;
-
     // Вычисляем упругость
     float e = min( A.restitution, B.restitution)
-
     // Вычисляем скаляр импульса силы
     float j = -(1 + e) * velAlongNormal
     j /= 1 / A.mass + 1 / B.mass
-
     // Прикладываем импульс силы
     Vec2 impulse = j * normal
     A.velocity -= 1 / A.mass * impulse
@@ -194,13 +188,13 @@ Player::Player(sf::RenderWindow* window)
 
 
     texture.loadFromFile("images/a.png");
-    acceleration = 0.001;
+    acceleration = 0.000000001;
     r = 25;
     level = 0;
     v = 0;
-    vmax = 0.3;
-    vmin = -0.15;
-    vrot = 0.15;
+    vmax = 0.001;
+    vmin = -0.0005;
+    vrot = 0.0003;
     window = window;
     rectangle.setSize(sf::Vector2f(50,50));
     rectangle.setOrigin(25,25);
@@ -215,21 +209,21 @@ void Player::update(float time) {
     {
         if(v < 0)
             v = v+3*acceleration*time;
-        else if(v <= vmax-acceleration)
+        else if(v <= (0.5*vmax)-acceleration)
             v = v+acceleration*time;
         else
-            v = vmax;
-        rectangle.rotate(vrot*time);
+            v = (0.5*vmax);
+        rectangle.rotate(vrot*time/2);
     }
     else if(WWW&AAA)
     {
         if(v < 0)
             v = v+3*acceleration*time;
-        else if(v <= vmax-acceleration)
+        else if(v <= (0.5*vmax)-acceleration)
             v = v+acceleration*time;
         else
-            v = vmax;
-        rectangle.rotate(-vrot*time);
+            v = (0.5*vmax);
+        rectangle.rotate(-vrot*time/2);
     }
     else if(SSS&DDD)
     {
@@ -241,7 +235,7 @@ void Player::update(float time) {
             v = v-acceleration*time;
         else
             v = vmin;
-        rectangle.rotate(vrot*time);
+        rectangle.rotate(vrot*time/2);
     }
     else if(SSS&AAA)
     {
@@ -253,7 +247,7 @@ void Player::update(float time) {
             v = v-acceleration*time;
         else
             v = vmin;
-        rectangle.rotate(-vrot*time);
+        rectangle.rotate(-vrot*time/2);
     }
     else if(WWW)
     {
@@ -277,13 +271,13 @@ void Player::update(float time) {
     }
     else 	if(DDD) {
         if(v >= acceleration)
-            v = v-acceleration;
+            v = v-acceleration*time;
         else if(v > 0)
             v = 0;
         else if(v >= -acceleration)
             v = 0;
         else
-            v = v+acceleration;
+            v = v+acceleration*time;
         rectangle.rotate(vrot*time);
     }
     else 	if(AAA) {
@@ -321,14 +315,14 @@ void Player::update(float time) {
     pos = rectangle.getPosition();
     pos.x += v*time*sin(rectangle.getRotation()*0.0175);
     pos.y += -v*time*cos(rectangle.getRotation()*0.0175);
-    //observation.setCenter(pos);
+
 
     if(CollisionCircleRectangle(pos.x+25, pos.y+25, r, 500, 500, 200, 200, v))
     {
         v = 0;
     }
     rectangle.move(v*time*sin(rectangle.getRotation()*0.0175) ,-v*time*cos(rectangle.getRotation()*0.0175));
-   // window->setView(observation);
+
 
 
 

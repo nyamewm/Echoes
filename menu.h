@@ -1,5 +1,6 @@
 #include "map.h"
 #include "menuin.h"
+#include <sstream>
 
 
 
@@ -21,6 +22,8 @@ void menu(sf::RenderWindow & window1) {
     menu2.setPosition(m2[0], m2[1]);
     menu3.setPosition(m3[0], m3[1]);
     menuBg.setPosition(0, 0);
+
+
 
     //////////////////////////////МЕНЮ///////////////////
     while (isMenu)
@@ -52,31 +55,64 @@ void menu(sf::RenderWindow & window1) {
                 Player a(&window);
 
                 sf::Clock clock;
-                float timer = 0, delay = 0.03;
+                float timer = 0, delay = 0.0133;
                 sf::View observation;
-                observation.setCenter(sf::Vector2f(100.f, 100.f));
-                observation.setSize(sf::Vector2f(200.f, 200.f));
+
+                observation.setSize(sf::Vector2f(800.f, 450.f));
+
+                sf::Font font;//шрифт
+                font.loadFromFile("arial.ttf");//передаем нашему шрифту файл шрифта
+                sf::Text textV("", font, 20);//создаем объект текст. закидываем в объект текст строку, шрифт, размер шрифта(в пикселях);//сам объект текст (не строка)
+                textV.setColor(sf::Color::White);//покрасили текст в красный. если убрать эту строку, то по умолчанию он белый
+                //text.setStyle(sf::Text::Bold | sf::Text::Underlined);//жирный и подчеркнутый текст. по умолчанию он "худой":)) и не подчеркнутый
+                sf::Text textFPS("", font, 20);
+                sf::Text texttickrate("", font, 20);
+
+                std::ostringstream playerVelocity;    // объявили переменную
+                std::ostringstream fps;    // объявили переменную
+                std::ostringstream tickrate;    // объявили переменную
 
 
                 while(window.isOpen())
                 {
+
                     float time = clock.getElapsedTime().asSeconds();
+                    float time1 = clock.getElapsedTime().asMicroseconds();
                     clock.restart();
                     timer += time;
-                    float time1 = clock.getElapsedTime().asMicroseconds();
-                    a.update(time1);
+
+                    a.update(1*time1);
 
                     if (timer > delay) {
+                        tickrate.str(std::string());
+                        tickrate << 1000000/time1;		//делим миллион микросекунд на время одного апдейта
+                        fps.str(std::string());
+                        fps << 1/timer;		//делим секунду на время одной прорисовки
                         timer = 0;
                         window.clear(); // рисуется всё, кроме карты
                         run(&window);
 
 
-
-                        window.draw(a);
                         observation.setCenter(a.pos);
                         window.setView(observation);
+                        window.draw(a);
+
+                        playerVelocity.str(std::string());
+                        playerVelocity << (a.v)/(a.vmax);		//занесли в нее отношение скорости к максимальной скорости
+                        textV.setString("V =" + playerVelocity.str());//задаем строку тексту и вызываем сформированную выше строку методом .str()
+                        textV.setPosition(observation.getCenter().x - 350, observation.getCenter().y - 200);//задаем позицию текста, отступая от центра камеры
+                        textFPS.setString("FPS =" + fps.str());
+                        textFPS.setPosition(observation.getCenter().x - 350, observation.getCenter().y - 170);
+                        texttickrate.setString("tickrate =" + tickrate.str());
+                        texttickrate.setPosition(observation.getCenter().x - 350, observation.getCenter().y - 140);
+                        window.draw(textV);//рисую этот текст
+                        window.draw(textFPS);
+                        window.draw(texttickrate);
+
                         window.display();
+
+
+
                     }
 
 
@@ -85,9 +121,9 @@ void menu(sf::RenderWindow & window1) {
                     {
                         if(event.type == sf::Event::Closed)
                             window.close();
-                            if(sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) {
+                        if(sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) {
                             sf::RenderWindow window2(sf::VideoMode(740, 500), "Echoes|pause");
-                            menuin(window2, isMenu, window);
+                            //menuin(window2);
                         }
                     }
 
