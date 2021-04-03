@@ -101,10 +101,10 @@ public:
 class Static: public Entity {
 public:
     Static(sf::RenderWindow* window);
-    /*void draw()
+    void draw()
     {
         window->draw(rectangle);
-    }*/
+    }
 private:
     void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 };
@@ -317,7 +317,7 @@ void Player::update(float time) {
     pos.y += -v*time*cos(rectangle.getRotation()*0.0175);
 
 
-    if(CollisionCircleRectangle(pos.x+25, pos.y+25, r, 500, 500, 200, 200, v))
+    if(CollisionCircleRectangle(pos.x+25, pos.y+25, r, 300, 300, 200, 200, v))
     {
         v = 0;
     }

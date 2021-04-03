@@ -53,6 +53,7 @@ void menu(sf::RenderWindow & window1) {
                 window1.close();
                 sf::RenderWindow window(sf::VideoMode(1920, 1080), "Echoes");
                 Player a(&window);
+                Static b(&window);
 
                 sf::Clock clock;
                 float timer = 0, delay = 0.0133;
@@ -95,6 +96,7 @@ void menu(sf::RenderWindow & window1) {
 
                         observation.setCenter(a.pos);
                         window.setView(observation);
+                        window.draw(b);
                         window.draw(a);
 
                         playerVelocity.str(std::string());
