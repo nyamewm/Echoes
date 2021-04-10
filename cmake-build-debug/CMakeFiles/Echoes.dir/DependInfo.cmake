@@ -4,16 +4,14 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
-  "C:/Users/andro/CLionProjects/Echoes/main.cpp" "C:/Users/andro/CLionProjects/Echoes/cmake-build-debug/CMakeFiles/Echoes.dir/main.cpp.obj"
+  "/home/alex/CLionProjects/main.cpp" "/home/alex/CLionProjects/cmake-build-debug/CMakeFiles/Echoes.dir/main.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 
 # The include file search paths:
 set(CMAKE_CXX_TARGET_INCLUDE_PATH
   "../headers"
-  "/usr/include"
-  "e:/SFML/include"
-  "E:/SFML/include"
+  "../e:/SFML/include"
   )
 
 # Targets to which this target links.
