@@ -188,13 +188,13 @@ Player::Player(sf::RenderWindow* window)
 
 
     texture.loadFromFile("images/a.png");
-    acceleration = 0.000000001;
+    acceleration = 0.0000000005;
     r = 25;
     level = 0;
     v = 0;
-    vmax = 0.001;
+    vmax = 0.0003;
     vmin = -0.0005;
-    vrot = 0.0003;
+    vrot = 0.0001;
     window = window;
     rectangle.setSize(sf::Vector2f(50,50));
     rectangle.setOrigin(25,25);
