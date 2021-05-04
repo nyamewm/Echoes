@@ -1,6 +1,18 @@
-"E:\CLion 2020.3.3\bin\cmake\win\bin\cmake.exe" -DCMAKE_BUILD_TYPE=Debug -G "CodeBlocks - MinGW Makefiles" C:\Users\andro\CLionProjects\Echoes
--- Found SFML .. in E:/SFML/include
--- Found SFML 2.5.1 in E:/SFML/include
+/snap/clion/149/bin/cmake/linux/bin/cmake -DCMAKE_BUILD_TYPE=Debug -G "CodeBlocks - Unix Makefiles" /home/ilya/CLionProjects/Echoes
+-- The C compiler identification is GNU 9.3.0
+-- The CXX compiler identification is GNU 9.3.0
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Check for working C compiler: /usr/bin/cc - skipped
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /usr/bin/c++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Found SFML .. in /usr/include
+-- Found SFML 2.5.1 in /usr/include
 -- Configuring done
 -- Generating done
--- Build files have been written to: C:/Users/andro/CLionProjects/Echoes/cmake-build-debug
+-- Build files have been written to: /home/ilya/CLionProjects/Echoes/cmake-build-debug

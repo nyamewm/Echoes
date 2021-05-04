@@ -1,6 +1,11 @@
 #include "map.h"
 #include "menuin.h"
 #include <sstream>
+#include "rapidjson/document.h"
+#include "rapidjson/writer.h"
+#include "rapidjson/stringbuffer.h"
+#include "rapidjson/istreamwrapper.h"
+#include <fstream>
 
 bool CollisionCircleRectangle(Dynamic object, Static obstacle)
 {
@@ -299,7 +304,7 @@ void menu(sf::RenderWindow & window1) {
                             window.close();
                         if(sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) {
                             sf::RenderWindow window2(sf::VideoMode(740, 500), "Echoes|pause");
-                            //menuin(window2);
+                            menuin(window2, isMenu, window,a);
                         }
                     }
 
