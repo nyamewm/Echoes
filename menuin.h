@@ -18,14 +18,14 @@ std::string GetElementValue(const Value& val)
 
 
 
-void save(Player a){
+void save(Player player){
     char cbuf[1024];
     rapidjson::MemoryPoolAllocator<> allocator (cbuf, sizeof cbuf);
     rapidjson::Document meta (&allocator, 256);
     meta.SetObject();
-    meta.AddMember ("x", a.pos.x, allocator);
-    meta.AddMember ("y", a.pos.y, allocator);
-    meta.AddMember ("v_x", a.v, allocator);
+    meta.AddMember ("x", player.rectangle.getPosition().x, allocator);
+    meta.AddMember ("y", player.rectangle.getPosition().y, allocator);
+    meta.AddMember ("v_x", player.v, allocator);
 
 
     typedef rapidjson::GenericStringBuffer<rapidjson::UTF8<>, rapidjson::MemoryPoolAllocator<>> StringBuffer;
@@ -40,7 +40,7 @@ void save(Player a){
 
 }
 
-void load(std::string file_name, Player &a){
+void load(std::string file_name, Player &player){
     std::vector<float> datb;
     std::ifstream ifs("save.json");
     IStreamWrapper isw(ifs);
@@ -51,7 +51,7 @@ void load(std::string file_name, Player &a){
     for (Value::ConstMemberIterator iter = documentFromFile.MemberBegin(); iter != documentFromFile.MemberEnd(); ++iter) {
          datb.push_back(std::stof(GetElementValue(iter->value)));
     }
-    a.rectangle.setPosition(datb[0],datb[1]);
+    player.rectangle.setPosition(datb[0], datb[1]);
 
 }
 
@@ -60,7 +60,7 @@ void load(std::string file_name, Player &a){
 
 
 
-void menuin(sf::RenderWindow & window2, bool & isMenu, sf::RenderWindow & window1,Player &a) {
+void menuin(sf::RenderWindow & window2, bool & isMenu, sf::RenderWindow & window1,Player &player) {
 
 
 
@@ -132,13 +132,13 @@ void menuin(sf::RenderWindow & window2, bool & isMenu, sf::RenderWindow & window
         if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) { //кнопка сохранений
             if (menuNum == 1) isMenuin = false;
             if (menuNum == 4) {
-                save(a);
+                save(player);
             }
         }
         if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) { //кнопка загрузки
             if (menuNum == 1) isMenuin = false;
             if (menuNum == 2) {
-                load("save",a);
+                load("save", player);
             }
         }
         window2.clear();

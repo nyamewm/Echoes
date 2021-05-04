@@ -304,7 +304,7 @@ void menu(sf::RenderWindow & window1) {
                             window.close();
                         if(sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) {
                             sf::RenderWindow window2(sf::VideoMode(740, 500), "Echoes|pause");
-                            menuin(window2, isMenu, window,a);
+                            menuin(window2, isMenu, window,player);
                         }
                     }
 
