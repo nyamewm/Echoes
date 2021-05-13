@@ -7,6 +7,49 @@ CMakeFiles/Echoes.dir/main.cpp.obj
  C:/Users/andro/CLionProjects/Echoes/map.h
  C:/Users/andro/CLionProjects/Echoes/menu.h
  C:/Users/andro/CLionProjects/Echoes/menuin.h
+ C:/Users/andro/CLionProjects/Echoes/rapidjson/allocators.h
+ C:/Users/andro/CLionProjects/Echoes/rapidjson/document.h
+ C:/Users/andro/CLionProjects/Echoes/rapidjson/encodedstream.h
+ C:/Users/andro/CLionProjects/Echoes/rapidjson/encodings.h
+ C:/Users/andro/CLionProjects/Echoes/rapidjson/error/error.h
+ C:/Users/andro/CLionProjects/Echoes/rapidjson/internal/biginteger.h
+ C:/Users/andro/CLionProjects/Echoes/rapidjson/internal/clzll.h
+ C:/Users/andro/CLionProjects/Echoes/rapidjson/internal/diyfp.h
+ C:/Users/andro/CLionProjects/Echoes/rapidjson/internal/dtoa.h
+ C:/Users/andro/CLionProjects/Echoes/rapidjson/internal/ieee754.h
+ C:/Users/andro/CLionProjects/Echoes/rapidjson/internal/itoa.h
+ C:/Users/andro/CLionProjects/Echoes/rapidjson/internal/meta.h
+ C:/Users/andro/CLionProjects/Echoes/rapidjson/internal/pow10.h
+ C:/Users/andro/CLionProjects/Echoes/rapidjson/internal/stack.h
+ C:/Users/andro/CLionProjects/Echoes/rapidjson/internal/strfunc.h
+ C:/Users/andro/CLionProjects/Echoes/rapidjson/internal/strtod.h
+ C:/Users/andro/CLionProjects/Echoes/rapidjson/internal/swap.h
+ C:/Users/andro/CLionProjects/Echoes/rapidjson/istreamwrapper.h
+ C:/Users/andro/CLionProjects/Echoes/rapidjson/memorystream.h
+ C:/Users/andro/CLionProjects/Echoes/rapidjson/msinttypes/inttypes.h
+ C:/Users/andro/CLionProjects/Echoes/rapidjson/msinttypes/stdint.h
+ C:/Users/andro/CLionProjects/Echoes/rapidjson/rapidjson.h
+ C:/Users/andro/CLionProjects/Echoes/rapidjson/reader.h
+ C:/Users/andro/CLionProjects/Echoes/rapidjson/stream.h
+ C:/Users/andro/CLionProjects/Echoes/rapidjson/stringbuffer.h
+ C:/Users/andro/CLionProjects/Echoes/rapidjson/writer.h
+ E:/SFML/include/SFML/Audio.hpp
+ E:/SFML/include/SFML/Audio/AlResource.hpp
+ E:/SFML/include/SFML/Audio/Export.hpp
+ E:/SFML/include/SFML/Audio/InputSoundFile.hpp
+ E:/SFML/include/SFML/Audio/Listener.hpp
+ E:/SFML/include/SFML/Audio/Music.hpp
+ E:/SFML/include/SFML/Audio/OutputSoundFile.hpp
+ E:/SFML/include/SFML/Audio/Sound.hpp
+ E:/SFML/include/SFML/Audio/SoundBuffer.hpp
+ E:/SFML/include/SFML/Audio/SoundBufferRecorder.hpp
+ E:/SFML/include/SFML/Audio/SoundFileFactory.hpp
+ E:/SFML/include/SFML/Audio/SoundFileFactory.inl
+ E:/SFML/include/SFML/Audio/SoundFileReader.hpp
+ E:/SFML/include/SFML/Audio/SoundFileWriter.hpp
+ E:/SFML/include/SFML/Audio/SoundRecorder.hpp
+ E:/SFML/include/SFML/Audio/SoundSource.hpp
+ E:/SFML/include/SFML/Audio/SoundStream.hpp
  E:/SFML/include/SFML/Config.hpp
  E:/SFML/include/SFML/Graphics.hpp
  E:/SFML/include/SFML/Graphics/BlendMode.hpp

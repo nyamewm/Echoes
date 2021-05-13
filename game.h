@@ -35,6 +35,8 @@ struct Circle
     sf::Vector2f position;
 };
 
+
+
 bool CircleVsCircle(Circle a, Circle b)
 {
     float r = a.radius + b.radius;
@@ -42,55 +44,14 @@ bool CircleVsCircle(Circle a, Circle b)
     return r < ((a.position.x + b.position.x)*(a.position.x + b.position.x) + (a.position.y + b.position.y)*(a.position.y + b.position.y));
 }
 
-bool CollisionCircleRectangle(float x1, float y1, float r, float x2, float y2, float l, float w, double v)
-{
-    float b = -2*y1;
-    float c = pow(y1, 2) + pow((x2-x1), 2) - pow(r, 2);
-    double D = pow(b, 2) - 4*c;
-    if(D >= 0) {
-        float y3 = (-b + sqrt(D)) / 2;
-        float y4 = (-b - sqrt(D)) / 2;
-        if(((y3 > y2)&&(y3 < y2 + w))||((y4 > y2)&&(y4 < y2 + w)))
-            return true;
-    }
-    b = -2*y1;
-    c = pow(y1, 2) + pow((x2+l-x1), 2) - pow(r, 2);
-    D = pow(b, 2) - 4*c;
-    if(D >= 0) {
-        float y3 = (-b + sqrt(D)) / 2;
-        float y4 = (-b - sqrt(D)) / 2;
-        if(((y3 > y2)&&(y3 < y2 + w))||((y4 > y2)&&(y4 < y2 + w)))
-            return true;
-    }
-    b = -2*x1;
-    c = pow(x1, 2) + pow((y2-y1), 2) - pow(r, 2);
-    D = pow(b, 2) - 4*c;
-    if(D >= 0) {
-        float x3 = (-b + sqrt(D)) / 2;
-        float x4 = (-b - sqrt(D)) / 2;
-        if(((x3 > y2)&&(x3 < x2 + l))||((x4 > x2)&&(x4 < x2 + l)))
-            return true;
-    }
-    b = -2*x1;
-    c = pow(x1, 2) + pow((y2+w-y1), 2) - pow(r, 2);
-    D = pow(b, 2) - 4*c;
-    if(D >= 0) {
-        float x3 = (-b + sqrt(D)) / 2;
-        float x4 = (-b - sqrt(D)) / 2;
-        if(((x3 > y2)&&(x3 < x2 + l))||((x4 > x2)&&(x4 < x2 + l)))
-            return true;
-    }
-    return false;
-}
+
 class Entity : public sf::Drawable {
 public:
     sf::RenderWindow* window;
     sf::RectangleShape rectangle;
     sf::Texture texture;
-
-
     const sf::Texture *pTexture = &texture;
-    int x, y;
+    float CurrentFrame = 0;
     int level;
     sf::Vector2f position;
     int angle;
@@ -101,235 +62,369 @@ public:
 class Static: public Entity {
 public:
     Static(sf::RenderWindow* window);
-    void draw()
-    {
-        window->draw(rectangle);
-    }
 private:
     void draw(sf::RenderTarget& target, sf::RenderStates states) const;
+};
+
+class Aid: public Static {
+public:
+    sf::SoundBuffer aidbuffer;
+    sf::Sound aid;
+    float hpregen;
+    Aid(sf::RenderWindow* window);
+private:
+    void draw(sf::RenderTarget& target, sf::RenderStates states) const;
+};
+
+class Battery: public Static {
+public:
+    sf::SoundBuffer batterybuffer;
+    sf::Sound battery;
+    float energyregen;
+    Battery(sf::RenderWindow* window);
+private:
+    void draw(sf::RenderTarget& target, sf::RenderStates states) const;
+};
+
+class Turret: public Static {
+public:
+    sf::Texture texture;
+    const sf::Texture *pTexture = &texture;
+    sf::SoundBuffer shootbuffer;
+    sf::Sound shoot;
+    Turret(sf::RenderWindow *window);
+    float damage;
+    float lastshot;
+    float vrot;
+    float reload;
+private:
+    void draw(sf::RenderTarget& target, sf::RenderStates states) const{
+        target.draw(rectangle, states);
+    };
 };
 
 class Dynamic: public Entity {
 public:
+    sf::Vector2f pos;
+    bool alive;
+    float health;
+    float healthmax;
+    float energy;
+    float energymax;
     float v;
     float acceleration;
     float r;
-
+    sf::Texture textureExplosion;
+    const sf::Texture *pTextureExplosion = &textureExplosion;
+    sf::SoundBuffer explosionbuffer;
+    sf::Sound explosion;
 private:
     void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 };
 
-float DotProduct(sf::Vector2f a, sf::Vector2f b)
-{
-    return (a.x*b.x + a.y*b.y);
-}
-
-/*void ResolveCollision(Dynamic A, Dynamic B)
-{
-    // Вычисляем относительную скорость
-    sf::Vector2f rv = B.v - A.v;
-    sf::Vector2f normal;
-    normal.x = (B.position.x - A.position.x)/();
-    // Вычисляем относительную скорость относительно направления нормали
-    float velAlongNormal = DotProduct(rv, normal)
-    // Не выполняем вычислений, если скорости разделены
-    if(velAlongNormal > 0)
-        return;
-    // Вычисляем упругость
-    float e = min( A.restitution, B.restitution)
-    // Вычисляем скаляр импульса силы
-    float j = -(1 + e) * velAlongNormal
-    j /= 1 / A.mass + 1 / B.mass
-    // Прикладываем импульс силы
-    Vec2 impulse = j * normal
-    A.velocity -= 1 / A.mass * impulse
-    B.velocity += 1 / B.mass * impulse
-}*/
+class Bullet: public Dynamic {
+public:
+    sf::Texture texture;
+    const sf::Texture *pTexture = &texture;
+    float damage;
+    float lifetime;
+    float birthtime;
+    Bullet(sf::RenderWindow* window, Turret turret, float timer);
+    void update(float time, float timer);
+private:
+    void draw(sf::RenderTarget& target, sf::RenderStates states) const;
+};
 
 class Player: public Dynamic {
     sf::Texture texture;
     const sf::Texture *pTexture = &texture;
 public:
     Player(sf::RenderWindow* window);
-
-
-
+    float headlightstimer;
+    bool headlights;
     int level;
-    sf::Vector2f pos;
     float vmax, vmin, vrot;
     /*void draw()
     {
         window->draw(rectangle);
     }*/
-    void update(float time);
+    void update(float time, float timer);
 
 private:
     void draw(sf::RenderTarget& target, sf::RenderStates states) const;
-
 };
+
+
 
 Static::Static(sf::RenderWindow *window) {
-    window = window;
     rectangle.setSize(sf::Vector2f(200,200));
-    rectangle.setOrigin(25,25);
+    rectangle.setOrigin(0,0);
     rectangle.setPosition(300,300);
     rectangle.setRotation(0);
+    rectangle.setFillColor(sf::Color(100,100,100));
+    rectangle.setOutlineColor(sf::Color(50,50,50));
+    rectangle.setOutlineThickness(-15);
 };
+
+Aid::Aid(sf::RenderWindow *window) : Static(window) {
+    texture.loadFromFile("images/repair_kit.png");
+    rectangle.setTexture(pTexture);
+    aidbuffer.loadFromFile("sounds/aid.ogg");
+    aid.setBuffer(aidbuffer);
+    hpregen = 50;
+    rectangle.setSize(sf::Vector2f(30, 30));
+    rectangle.setOrigin(15, 15);
+    rectangle.setPosition(-200, -200);
+    rectangle.setRotation(0);
+    rectangle.setFillColor(sf::Color(255, 255, 255, 255));
+    rectangle.setOutlineColor(sf::Color(0, 0, 0, 0));
+};
+
+Battery::Battery(sf::RenderWindow *window) : Static(window) {
+    texture.loadFromFile("images/battery.png");
+    rectangle.setTexture(pTexture);
+    batterybuffer.loadFromFile("sounds/battery.wav");
+    battery.setBuffer(batterybuffer);
+    energyregen = 50;
+    rectangle.setSize(sf::Vector2f(30, 30));
+    rectangle.setOrigin(15, 15);
+    rectangle.setPosition(-200, 0);
+    rectangle.setRotation(0);
+    rectangle.setFillColor(sf::Color(255, 255, 255, 255));
+    rectangle.setOutlineColor(sf::Color(0, 0, 0, 0));
+};
+
+Turret::Turret(sf::RenderWindow *window) : Static(window) {
+    vrot = 0.00015;
+    texture.loadFromFile("images/turret.png");
+    rectangle.setTexture(pTexture);
+    shootbuffer.loadFromFile("sounds/gunshot.wav");
+    shoot.setBuffer(shootbuffer);
+    damage = 40;
+    reload = 1;
+    rectangle.setSize(sf::Vector2f(50,50));
+    rectangle.setOrigin(25,25);
+    rectangle.setPosition(200,-200);
+    rectangle.setRotation(0);
+    rectangle.setFillColor(sf::Color(255,255,255,255));
+    rectangle.setOutlineColor(sf::Color(0,0,0,0));
+};
+
+Bullet::Bullet(sf::RenderWindow *window, Turret turret, float timer) {
+    texture.loadFromFile("images/bullet.png");
+    rectangle.setTexture(pTexture);
+    r = 5;
+    v = 0.0005;
+    damage = turret.damage;
+    birthtime = timer;
+    lifetime = 3;
+    rectangle.setSize(sf::Vector2f(20, 20));
+    rectangle.setOrigin(10,10);
+    rectangle.setPosition(turret.rectangle.getPosition());
+    pos = rectangle.getPosition();
+    rectangle.setRotation(turret.rectangle.getRotation()+90);
+    rectangle.move(turret.rectangle.getSize().x*sin(rectangle.getRotation()*0.0175)/2 ,-turret.rectangle.getSize().x*cos(rectangle.getRotation()*0.0175)/2);
+    rectangle.setFillColor(sf::Color(255,255,255,255));
+    rectangle.setOutlineColor(sf::Color(0,0,0,0));
+    rectangle.setOutlineThickness(0);
+};
+
 void Static::draw(sf::RenderTarget &target, sf::RenderStates states) const  {
     target.draw(rectangle, states);
 
 };
+
 void Dynamic::draw(sf::RenderTarget &target, sf::RenderStates states) const  {
     target.draw(rectangle, states);
 
 };
+
 Player::Player(sf::RenderWindow* window)
 {
-
-
+    headlights = false;
+    alive = true;
+    headlightstimer = 0;
     texture.loadFromFile("images/a.png");
-    acceleration = 0.000000001;
+    textureExplosion.loadFromFile("images/explosion.png");
+    explosionbuffer.loadFromFile("sounds/explosion.ogg");
+    explosion.setBuffer(explosionbuffer);
+    acceleration = 0.0000000015;
     r = 25;
     level = 0;
     v = 0;
-    vmax = 0.001;
-    vmin = -0.0005;
+    vmax = 0.0009;
+    vmin = -0.00045;
     vrot = 0.0003;
-    window = window;
     rectangle.setSize(sf::Vector2f(50,50));
     rectangle.setOrigin(25,25);
     rectangle.setPosition(100, 100);
     rectangle.setRotation(0);
     rectangle.setTexture(pTexture);
-
-
 };
-void Player::update(float time) {
-    if(WWW&DDD)
-    {
-        if(v < 0)
-            v = v+3*acceleration*time;
-        else if(v <= (0.5*vmax)-acceleration)
-            v = v+acceleration*time;
-        else
-            v = (0.5*vmax);
-        rectangle.rotate(vrot*time/2);
-    }
-    else if(WWW&AAA)
-    {
-        if(v < 0)
-            v = v+3*acceleration*time;
-        else if(v <= (0.5*vmax)-acceleration)
-            v = v+acceleration*time;
-        else
-            v = (0.5*vmax);
-        rectangle.rotate(-vrot*time/2);
-    }
-    else if(SSS&DDD)
-    {
-        if(v >= 3*acceleration)
-            v = v-3*acceleration*time;
-        else if(v > 0)
-            v = 0;
-        else if(v >= vmin+acceleration)
-            v = v-acceleration*time;
-        else
-            v = vmin;
-        rectangle.rotate(vrot*time/2);
-    }
-    else if(SSS&AAA)
-    {
-        if(v >= 3*acceleration)
-            v = v-3*acceleration*time;
-        else if(v > 0)
-            v = 0;
-        else if(v >= vmin+acceleration)
-            v = v-acceleration*time;
-        else
-            v = vmin;
-        rectangle.rotate(-vrot*time/2);
-    }
-    else if(WWW)
-    {
-        if(v < 0)
-            v = v+3*acceleration*time;
-        else if(v <= vmax-acceleration)
-            v = v+acceleration*time;
-        else
-            v = vmax;
-    }
-    else 	if(SSS)
-    {
-        if(v >= 3*acceleration)
-            v = v-3*acceleration*time;
-        else if(v > 0)
-            v = 0;
-        else if(v >= vmin+acceleration)
-            v = v-acceleration*time;
-        else
-            v = vmin;
-    }
-    else 	if(DDD) {
-        if(v >= acceleration)
-            v = v-acceleration*time;
-        else if(v > 0)
-            v = 0;
-        else if(v >= -acceleration)
-            v = 0;
-        else
-            v = v+acceleration*time;
-        rectangle.rotate(vrot*time);
-    }
-    else 	if(AAA) {
-        if(v >= acceleration)
-            v = v-acceleration*time;
-        else if(v > 0)
-            v = 0;
-        else if(v >= -acceleration)
-            v = 0;
-        else
-            v = v+acceleration*time;
-        rectangle.rotate(-vrot*time);
-    }
-    else 	if(SPACE) {
-        if(v >= 3*acceleration)
-            v = v-3*acceleration*time;
-        else if(v > 0)
-            v = 0;
-        else if(v >= -3*acceleration)
-            v = 0;
-        else
-            v = v+3*acceleration*time;
-    }
-    else
-    {
-        if(v >= acceleration)
-            v = v-acceleration*time;
-        else if(v > 0)
-            v = 0;
-        else if(v >= -acceleration)
-            v = 0;
-        else
-            v = v+acceleration*time;
-    }
-    pos = rectangle.getPosition();
+
+void Bullet::update(float time, float timer) {
+    rectangle.move(v*time*sin(rectangle.getRotation()*0.0175) ,-v*time*cos(rectangle.getRotation()*0.0175));
     pos.x += v*time*sin(rectangle.getRotation()*0.0175);
     pos.y += -v*time*cos(rectangle.getRotation()*0.0175);
+}
 
-
-    if(CollisionCircleRectangle(pos.x+25, pos.y+25, r, 300, 300, 200, 200, v))
+void Player::update(float time, float timer) {
+    if(alive)
     {
-        v = 0;
+        rectangle.move(v*time*sin(rectangle.getRotation()*0.0175) ,-v*time*cos(rectangle.getRotation()*0.0175));
+        if(energy > 0)
+        {
+            if(WWW&DDD)
+            {
+                if(v < 0)
+                    v = v+3*acceleration*time;
+                else if(v <= (0.5*vmax)-acceleration)
+                    v = v+acceleration*time;
+                else
+                    v = v-acceleration*time;
+                rectangle.rotate(vrot*time/2);
+            }
+            else if(WWW&AAA)
+            {
+                if(v < 0)
+                    v = v+3*acceleration*time;
+                else if(v <= (0.5*vmax)-acceleration)
+                    v = v+acceleration*time;
+                else
+                    v = v-acceleration*time;
+                rectangle.rotate(-vrot*time/2);
+            }
+            else if(SSS&DDD)
+            {
+                if(v >= 3*acceleration)
+                    v = v-3*acceleration*time;
+                else if(v > 0)
+                    v = 0;
+                else if(v >= vmin+acceleration)
+                    v = v-acceleration*time;
+                else
+                    v = vmin;
+                rectangle.rotate(vrot*time/2);
+            }
+            else if(SSS&AAA)
+            {
+                if(v >= 3*acceleration)
+                    v = v-3*acceleration*time;
+                else if(v > 0)
+                    v = 0;
+                else if(v >= vmin+acceleration)
+                    v = v-acceleration*time;
+                else
+                    v = vmin;
+                rectangle.rotate(-vrot*time/2);
+            }
+            else if(WWW)
+            {
+                if(v < 0)
+                    v = v+3*acceleration*time;
+                else if(v <= vmax-acceleration)
+                    v = v+acceleration*time;
+                else
+                    v = vmax;
+            }
+            else 	if(SSS)
+            {
+                if(v >= 3*acceleration)
+                    v = v-3*acceleration*time;
+                else if(v > 0)
+                    v = 0;
+                else if(v >= vmin+acceleration)
+                    v = v-acceleration*time;
+                else
+                    v = vmin;
+            }
+            else 	if(DDD) {
+                if(v >= acceleration)
+                    v = v-acceleration*time;
+                else if(v > 0)
+                    v = 0;
+                else if(v >= -acceleration)
+                    v = 0;
+                else
+                    v = v+acceleration*time;
+                rectangle.rotate(vrot*time);
+            }
+            else 	if(AAA) {
+                if(v >= acceleration)
+                    v = v-acceleration*time;
+                else if(v > 0)
+                    v = 0;
+                else if(v >= -acceleration)
+                    v = 0;
+                else
+                    v = v+acceleration*time;
+                rectangle.rotate(-vrot*time);
+            }
+            else 	if(SPACE && (timer-headlightstimer)>0.5 && energy > 10) {
+                headlightstimer = timer;
+                if (headlights)
+                    headlights = false;
+                else
+                    headlights = true;
+            }
+            else
+            {
+                if(v >= acceleration)
+                    v = v-acceleration*time;
+                else if(v > 0)
+                    v = 0;
+                else if(v >= -acceleration)
+                    v = 0;
+                else
+                    v = v+acceleration*time;
+            }
+        }
+        else {
+            if (v >= acceleration)
+                v = v - acceleration * time;
+            else if (v > 0)
+                v = 0;
+            else if (v >= -acceleration)
+                v = 0;
+            else
+                v = v + acceleration * time;
+        }
+        pos = rectangle.getPosition();
+        pos.x += v*time*sin(rectangle.getRotation()*0.0175);
+        pos.y += -v*time*cos(rectangle.getRotation()*0.0175);
+        energy -= 3*time/1000000;
+        if(headlights)
+            energy -= 3*time/1000000;
+        if(energy < 10) {
+            headlightstimer = timer;
+            headlights = false;
+        }
+        if(energy + time*((cos(timer*6.28/60)+1)/500000) < energymax)
+            energy += time*((cos(timer*6.28/60)+1)/500000);
+        else
+            energy = energymax;
+        if(energy < 0) {
+            energy = 0;
+        }
     }
-    rectangle.move(v*time*sin(rectangle.getRotation()*0.0175) ,-v*time*cos(rectangle.getRotation()*0.0175));
-
-
-
-
+    else if(CurrentFrame <= 48){
+        CurrentFrame += 0.00004 * time;
+        rectangle.setTextureRect(sf::IntRect((int(CurrentFrame)%8) * 240, int(CurrentFrame / 8) * 240, 240, 240));
+    }
 };
-void Player::draw(sf::RenderTarget &target, sf::RenderStates states) const  {
 
-
+void Battery::draw(sf::RenderTarget &target, sf::RenderStates states) const  {
     target.draw(rectangle, states);
+};
 
+void Aid::draw(sf::RenderTarget &target, sf::RenderStates states) const  {
+    target.draw(rectangle, states);
+};
+
+void Bullet::draw(sf::RenderTarget &target, sf::RenderStates states) const  {
+    target.draw(rectangle, states);
+};
+
+void Player::draw(sf::RenderTarget &target, sf::RenderStates states) const  {
+    target.draw(rectangle, states);
 };
