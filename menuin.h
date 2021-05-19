@@ -12,20 +12,43 @@ std::string GetElementValue(const Value& val)
 {
     if (val.GetType() == Type::kNumberType)
         return std::to_string(val.GetDouble());
-
 }
 
 
 
 
-void save(Player player){
+
+
+void load(std::string file_name, Player &player, float &timer){
+    std::vector<float> datb;
+    std::ifstream ifs("save.json");
+    IStreamWrapper isw(ifs);
+    Document documentFromFile;
+
+    documentFromFile.ParseStream(isw);
+
+    for (Value::ConstMemberIterator iter = documentFromFile.MemberBegin(); iter != documentFromFile.MemberEnd(); ++iter) {
+         datb.push_back(std::stof(GetElementValue(iter->value)));
+    }
+    player.rectangle.setPosition(datb[0], datb[1]);
+    player.health = (datb[2]);
+    player.energy = (datb[3]);
+    player.headlights = (datb[4]);
+    timer = (datb[5]);
+}
+
+
+void save(Player player, float &timer){
     char cbuf[1024];
     rapidjson::MemoryPoolAllocator<> allocator (cbuf, sizeof cbuf);
     rapidjson::Document meta (&allocator, 256);
     meta.SetObject();
     meta.AddMember ("x", player.rectangle.getPosition().x, allocator);
     meta.AddMember ("y", player.rectangle.getPosition().y, allocator);
-    meta.AddMember ("v_x", player.v, allocator);
+    meta.AddMember ("hp", player.health, allocator);
+    meta.AddMember ("energy", player.energy, allocator);
+    meta.AddMember ("energy", player.headlights, allocator);
+    meta.AddMember ("timer", timer, allocator);
 
 
     typedef rapidjson::GenericStringBuffer<rapidjson::UTF8<>, rapidjson::MemoryPoolAllocator<>> StringBuffer;
@@ -40,27 +63,9 @@ void save(Player player){
 
 }
 
-void load(std::string file_name, Player &player){
-    std::vector<float> datb;
-    std::ifstream ifs("save.json");
-    IStreamWrapper isw(ifs);
-    Document documentFromFile;
-
-    documentFromFile.ParseStream(isw);
-
-    for (Value::ConstMemberIterator iter = documentFromFile.MemberBegin(); iter != documentFromFile.MemberEnd(); ++iter) {
-         datb.push_back(std::stof(GetElementValue(iter->value)));
-    }
-    player.rectangle.setPosition(datb[0], datb[1]);
-
-}
 
 
-
-
-
-
-void menuin(sf::RenderWindow & window2, bool & isMenu, sf::RenderWindow & window1,Player &player) {
+void menuin(sf::RenderWindow & window2, bool & isMenu, sf::RenderWindow & window1,Player &player, float &timer, float &time1) {
 
 
 
@@ -75,14 +80,22 @@ void menuin(sf::RenderWindow & window2, bool & isMenu, sf::RenderWindow & window
     menuTexture2.loadFromFile("images/222.png");
     menuTexture3.loadFromFile("images/333.png");
     menuTexture4.loadFromFile("images/555.png");
+
+    sf::Font font;//шрифт
+    font.loadFromFile("arial.ttf");//передаем нашему шрифту файл шрифта
+    sf::Text text1("Resume", font, 30);
+    sf::Text text2("Load", font, 30);
+    sf::Text text3("Quit", font, 30);
+    sf::Text text4("Save", font, 30);
+
     menuBackground.loadFromFile("images/menu.jpg");
     sf::Sprite menu1(menuTexture1), menu2(menuTexture2), menu3(menuTexture3),menu4(menuTexture4), menuBg(menuBackground);
     bool isMenuin = 1;
     int menuNum = 0;
-    menu1.setPosition(m1[0], m1[1]);
-    menu2.setPosition(m2[0], m2[1]);
-    menu3.setPosition(m3[0], m3[1]);
-    menu4.setPosition(m4[0], m4[1]);
+    text1.setPosition(m1[0], m1[1]);
+    text2.setPosition(m2[0], m2[1]);
+    text3.setPosition(m3[0], m3[1]);
+    text4.setPosition(m4[0], m4[1]);
     menuBg.setPosition(0, 0);
 
 
@@ -91,26 +104,28 @@ void menuin(sf::RenderWindow & window2, bool & isMenu, sf::RenderWindow & window
 
 
     while (isMenuin) {
-        menu1.setColor(sf::Color::White);
-        menu2.setColor(sf::Color::White);
-        menu3.setColor(sf::Color::White);
+
+        text1.setColor(sf::Color::White);
+        text2.setColor(sf::Color::White);
+        text3.setColor(sf::Color::White);
+        text4.setColor(sf::Color::White);
         menuNum = 0;
         window2.clear(sf::Color(129, 181, 221));
 
         if (sf::IntRect(m1[0], m1[1], 300, 50).contains(sf::Mouse::getPosition(window2))) {
-            menu1.setColor(sf::Color::Yellow);
+            text1.setColor(sf::Color::Yellow);
             menuNum = 1;
         };
         if (sf::IntRect(m2[0], m2[1], 300, 50).contains(sf::Mouse::getPosition(window2))) {
-            menu2.setColor(sf::Color::Yellow);
+            text2.setColor(sf::Color::Yellow);
             menuNum = 2;
         };
         if (sf::IntRect(m3[0], m3[1], 300, 50).contains(sf::Mouse::getPosition(window2))) {
-            menu3.setColor(sf::Color::Yellow);
+            text3.setColor(sf::Color::Yellow);
             menuNum = 3;
         };
         if (sf::IntRect(m4[0], m4[1], 300, 50).contains(sf::Mouse::getPosition(window2))) {
-            menu4.setColor(sf::Color::Yellow);
+            text4.setColor(sf::Color::Yellow);
             menuNum = 4;
         };
 
@@ -132,22 +147,22 @@ void menuin(sf::RenderWindow & window2, bool & isMenu, sf::RenderWindow & window
         if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) { //кнопка сохранений
             if (menuNum == 1) isMenuin = false;
             if (menuNum == 4) {
-                save(player);
+                save(player, timer);
             }
         }
         if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) { //кнопка загрузки
             if (menuNum == 1) isMenuin = false;
             if (menuNum == 2) {
-                load("save", player);
+                load("save", player, timer);
             }
         }
         window2.clear();
 
         window2.draw(menuBg);
-        window2.draw(menu1);
-        window2.draw(menu2);
-        window2.draw(menu3);
-        window2.draw(menu4);
+        window2.draw(text1);
+        window2.draw(text2);
+        window2.draw(text3);
+        window2.draw(text4);
 
 
         window2.display();

@@ -8,52 +8,114 @@
 #include <fstream>
 #include <vector>
 
+const float pi = 3.1416;
+
 bool CollisionCircleRectangle(Dynamic object, Static obstacle)
 {
-    float x1 = object.pos.x;
-    float y1 = object.pos.y;
-    float r = object.r;
-    float x2 = obstacle.rectangle.getPosition().x;
-    float y2 = obstacle.rectangle.getPosition().y;
-    float l = obstacle.rectangle.getSize().x;
-    float w = obstacle.rectangle.getSize().y;
-    float b = -2*y1;
-    float c = pow(y1, 2) + pow((x2-x1), 2) - pow(r, 2);
-    double D = pow(b, 2) - 4*c;
-    if(D >= 0) {
-        float y3 = (-b + sqrt(D)) / 2;
-        float y4 = (-b - sqrt(D)) / 2;
-        if(((y3 > y2)&&(y3 < y2 + w))||((y4 > y2)&&(y4 < y2 + w)))
+    float t = obstacle.rectangle.getRotation()*pi/180;
+    double x1 = object.pos.x;
+    double y1 = object.pos.y;
+    double r = object.r;
+    double x2 = obstacle.rectangle.getPosition().x;
+    double y2 = obstacle.rectangle.getPosition().y;
+    double m = x2-x1;
+    double n = y2-y1;
+    double x = m*cos(t) + n*sin(t) - obstacle.rectangle.getOrigin().x;
+    double y = n*cos(t) - m*sin(t) - obstacle.rectangle.getOrigin().y;
+    double l = obstacle.rectangle.getSize().x;
+    double w = obstacle.rectangle.getSize().y;
+    double c;
+    if(abs(x)<r)
+    {
+        c = sqrt(r*r - x*x);
+        if(((y < c)&&(c < y+w))||((y < -c)&&(-c < y+w)))
             return true;
     }
-    b = -2*y1;
-    c = pow(y1, 2) + pow((x2+l-x1), 2) - pow(r, 2);
-    D = pow(b, 2) - 4*c;
-    if(D >= 0) {
-        float y3 = (-b + sqrt(D)) / 2;
-        float y4 = (-b - sqrt(D)) / 2;
-        if(((y3 > y2)&&(y3 < y2 + w))||((y4 > y2)&&(y4 < y2 + w)))
+    if(abs(x+l)<r)
+    {
+        c = sqrt(r*r - (x+l)*(x+l));
+        if(((y < c)&&(c < y+w))||((y < -c)&&(-c < y+w)))
             return true;
     }
-    b = -2*x1;
-    c = pow(x1, 2) + pow((y2-y1), 2) - pow(r, 2);
-    D = pow(b, 2) - 4*c;
-    if(D >= 0) {
-        float x3 = (-b + sqrt(D)) / 2;
-        float x4 = (-b - sqrt(D)) / 2;
-        if(((x3 > y2)&&(x3 < x2 + l))||((x4 > x2)&&(x4 < x2 + l)))
+    if(abs(y)<r)
+    {
+        c = sqrt(r*r - y*y);
+        if(((x < c)&&(c < x+l))||((x < -c)&&(-c < x+l)))
             return true;
     }
-    b = -2*x1;
-    c = pow(x1, 2) + pow((y2+w-y1), 2) - pow(r, 2);
-    D = pow(b, 2) - 4*c;
-    if(D >= 0) {
-        float x3 = (-b + sqrt(D)) / 2;
-        float x4 = (-b - sqrt(D)) / 2;
-        if(((x3 > y2)&&(x3 < x2 + l))||((x4 > x2)&&(x4 < x2 + l)))
+    if(abs(y+w)<r)
+    {
+        c = sqrt(r*r - (y+w)*(y+w));
+        if(((x < c)&&(c < x+l))||((x < -c)&&(-c < x+l)))
             return true;
     }
     return false;
+};
+
+void ResolveCollisionDynamicObstacle(Dynamic *object, Static obstacle)
+{
+    float t = obstacle.rectangle.getRotation()*pi/180;
+    double x1 = object->pos.x;
+    double y1 = object->pos.y;
+    double r = object->r;
+    double x2 = obstacle.rectangle.getPosition().x;
+    double y2 = obstacle.rectangle.getPosition().y;
+    double m = x2-x1;
+    double n = y2-y1;
+    double x = m*cos(t) + n*sin(t) - obstacle.rectangle.getOrigin().x;
+    double y = n*cos(t) - m*sin(t) - obstacle.rectangle.getOrigin().y;
+    double l = obstacle.rectangle.getSize().x;
+    double w = obstacle.rectangle.getSize().y;
+    double c;
+    sf::Vector2f v;
+    if(abs(x)<r)
+    {
+        c = sqrt(r*r - x*x);
+        if(((y < c)&&(c < y+w))||((y < -c)&&(-c < y+w))) {
+            v.x = object->v.x * cos(object->v.y*pi/180 - t);
+            if((object->v.y - t*180/pi)>180)
+                v.y = (t*180/pi)+180;
+            else
+                v.y = t*180/pi;
+            object->v = v;
+        }
+    }
+    if(abs(x+l)<r)
+    {
+        c = sqrt(r*r - (x+l)*(x+l));
+        if(((y < c)&&(c < y+w))||((y < -c)&&(-c < y+w))) {
+            v.x = object->v.x * cos(object->v.y*pi/180 - t);
+            if((object->v.y - t*180/pi)>180)
+                v.y = t*180/pi;
+            else
+                v.y = t*180/pi;
+            object->v = v;
+        }
+    }
+    if(abs(y)<r)
+    {
+        c = sqrt(r*r - y*y);
+        if(((x < c)&&(c < x+l))||((x < -c)&&(-c < x+l))) {
+            v.x = object->v.x * cos(object->v.y*pi/180 - t - (pi/2));
+            if((object->v.y - t*180/pi)>180)
+                v.y = t*180/pi+180;
+            else
+                v.y = t*180/pi;
+            object->v = v;
+        }
+    }
+    if(abs(y+w)<r)
+    {
+        c = sqrt(r*r - (y+w)*(y+w));
+        if(((x < c)&&(c < x+l))||((x < -c)&&(-c < x+l))) {
+            v.x = object->v.x * cos(object->v.y*pi/180 - t - (pi/2));
+            if((object->v.y - t*180/pi)>180)
+                v.y = t*180/pi;
+            else
+                v.y = t*180/pi+180;
+            object->v = v;
+        }
+    }
 };
 
 bool CollisionCircleCircle(Dynamic object1, Dynamic object2)
@@ -96,19 +158,22 @@ void TurretUpdate (Turret *turret, Dynamic object, float time, float timer, std:
             neededAngle = 3.14 + arctan;
         text->str(std::string());
         *text << neededAngle;
-        if(currentAngle < neededAngle)
+        if(abs(currentAngle-neededAngle) > 0.044)
         {
-            if ((neededAngle - currentAngle) < 3.14)
-                turret->rectangle.rotate(turret->vrot * time);
+            if(currentAngle < neededAngle)
+            {
+                if ((neededAngle - currentAngle) < 3.14)
+                    turret->rectangle.rotate(turret->vrot * time);
+                else
+                    turret->rectangle.rotate(-turret->vrot * time);
+            }
             else
-                turret->rectangle.rotate(-turret->vrot * time);
-        }
-        else
-        {
-            if ((currentAngle - neededAngle) < 3.14)
-                turret->rectangle.rotate(-turret->vrot * time);
-            else
-                turret->rectangle.rotate(turret->vrot * time);
+            {
+                if ((currentAngle - neededAngle) < 3.14)
+                    turret->rectangle.rotate(-turret->vrot * time);
+                else
+                    turret->rectangle.rotate(turret->vrot * time);
+            }
         }
         if((((dx*dx)+(dy*dy)) < 200*200)&&((timer - turret->lastshot) > turret->reload)) {
             BulletDrawList->push_back(new Bullet(window, *turret, timer));
@@ -176,20 +241,27 @@ void menu(sf::RenderWindow & window1) {
 
                 Player player(&window);
                 player.healthmax = 100;
-                player.health = 100;
-                player.energy = 100;
+                player.health = player.healthmax;
                 player.energymax = 100;
+                player.energy = player.energymax;
 
                 Static obstacle(&window);
                 obstacle.rectangle.setPosition(200,200);
+                obstacle.rectangle.setRotation(45);
+
+                Static testobstacle(&window);
+                testobstacle.rectangle.setPosition(1000,1000);
 
                 Static nameplate(&window);
                 nameplate.rectangle.setPosition(-100,-100);
+                nameplate.rectangle.setSize(sf::Vector2f(200, 200));
+                nameplate.rectangle.setOrigin(100,100);
+                nameplate.rectangle.setRotation(60);
                 nameplate.rectangle.setFillColor(sf::Color(255,183,72));
                 nameplate.rectangle.setOutlineColor(sf::Color(128,91,36));
 
                 Static borders(&window);
-                borders.rectangle.setSize(sf::Vector2f(1000, 1000));
+                borders.rectangle.setSize(sf::Vector2f(2000, 2000));
                 borders.rectangle.setPosition(sf::Vector2f(-500, -500));
                 borders.rectangle.setFillColor(sf::Color(0,0,0,0));
                 borders.rectangle.setOutlineThickness(15);
@@ -242,7 +314,7 @@ void menu(sf::RenderWindow & window1) {
                 youdied.rectangle.setTexture(youdied.pTexture);
 
                 Turret turret(&window);
-                turret.rectangle.setPosition(-200, 200);
+                turret.rectangle.setPosition(1200, 1200);
 
                 Aid aid(&window);
                 Battery battery(&window);
@@ -280,6 +352,15 @@ void menu(sf::RenderWindow & window1) {
                 std::vector<Battery*> BatteryList;
                 BatteryList.push_back(&battery);
 
+                std::vector<Static*> CollisionListStatic;
+                CollisionListStatic.push_back(&obstacle);
+                CollisionListStatic.push_back(&testobstacle);
+                CollisionListStatic.push_back(&borders);
+                CollisionListStatic.push_back(&turret);
+
+                std::vector<Dynamic*> CollisionListDynamic;
+                CollisionListDynamic.push_back(&player);
+
                 auto it = BulletList.begin();
                 int ii = 0;
 
@@ -291,20 +372,26 @@ void menu(sf::RenderWindow & window1) {
                     timer += time;
 
                     if (time1 > delay) {
-                        if(CollisionCircleRectangle(player, obstacle)||
-                        CollisionCircleRectangle(player, borders)||
-                                CollisionCircleRectangle(player, turret)){
-                            if(abs(player.v) > 0.5*player.vmax)
+                        for(Dynamic *m : CollisionListDynamic)
+                        {
+                            for(Static *n : CollisionListStatic)
                             {
-                                if(player.health/player.healthmax > 0.25*abs((player.v/player.vmax)))
+                                if(CollisionCircleRectangle(*m, *n))
                                 {
-                                    player.health -= 0.25*(abs(player.v)*player.healthmax)/player.vmax;
-                                }
-                                else if(player.alive) {
-                                    death(&player);
+                                    if(abs(m->v.x) > 0.5*m->vmax)
+                                    {
+                                        if(m->health/m->healthmax > 0.25*abs((m->v.x/m->vmax)))
+                                        {
+                                            //m->health -= 0.25*(abs(m->v.x)*m->healthmax)/m->vmax;
+                                        }
+                                        else if(m->alive) {
+                                            death(m);
+                                        }
+                                    }
+                                    ResolveCollisionDynamicObstacle(m, *n);
+                                    //m->v.x = 0;
                                 }
                             }
-                            player.v = 0;
                         }
                         for(auto i=AidList.begin(); i!=AidList.end(); i++, ii++) {
                             if(CollisionCircleRectangle(player, *AidList[ii])){
@@ -379,7 +466,7 @@ void menu(sf::RenderWindow & window1) {
                             cameray = borders.rectangle.getPosition().y+borders.rectangle.getSize().y - 225+20;
                         observation.setCenter(camerax, cameray);
 
-                        message.rectangle.setPosition(player.rectangle.getPosition().x-400+10, player.rectangle.getPosition().y+50);
+                        message.rectangle.setPosition(observation.getCenter().x-400+10, observation.getCenter().y+50);
                         textmessage.setPosition(message.rectangle.getPosition().x+25, message.rectangle.getPosition().y+25);
                         healthbar.rectangle.setPosition(player.rectangle.getPosition().x - 25, player.rectangle.getPosition().y - 60);
                         healthbarInside.rectangle.setSize(sf::Vector2f((player.health/player.healthmax)*46,6));
@@ -391,6 +478,7 @@ void menu(sf::RenderWindow & window1) {
                         window.setView(observation);
                         window.draw(borders);
                         window.draw(obstacle);
+                        window.draw(testobstacle);
                         window.draw(nameplate);
                         for(Aid* n : AidList){
                             window.draw(*n);
@@ -430,7 +518,7 @@ void menu(sf::RenderWindow & window1) {
                         }
 
                         playerVelocity.str(std::string());
-                        playerVelocity << (player.v)/(player.vmax);		//занесли в нее отношение скорости к максимальной скорости
+                        playerVelocity << (player.v.x)/(player.vmax);		//занесли в нее отношение скорости к максимальной скорости
                         textV.setString("V =" + playerVelocity.str());//задаем строку тексту и вызываем сформированную выше строку методом .str()
                         textV.setPosition(observation.getCenter().x - 350, observation.getCenter().y - 200);//задаем позицию текста, отступая от центра камеры
                         textFPS.setString("NeededAngle =" + fps.str());
@@ -451,7 +539,7 @@ void menu(sf::RenderWindow & window1) {
                         window.draw(textFPS);
                         window.draw(texttickrate);
 
-                        if(PointInsideRectangle(player, nameplate))
+                        if(CollisionCircleRectangle(player, nameplate))
                         {
                             textmessage.setString("Hello, world!");
                             window.draw(message);
@@ -464,7 +552,6 @@ void menu(sf::RenderWindow & window1) {
 
                     }
 
-
                     sf::Event event;
                     while(window.pollEvent(event))
                     {
@@ -472,9 +559,12 @@ void menu(sf::RenderWindow & window1) {
                             window.close();
                         if(sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) {
                             sf::RenderWindow window2(sf::VideoMode(740, 500), "Echoes|pause");
-                            menuin(window2, isMenu, window,player);
+                            menuin(window2, isMenu, window,player, timer, time1);
                         }
                     }
+
+
+
 
 
                 }

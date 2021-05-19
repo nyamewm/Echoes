@@ -106,12 +106,14 @@ private:
 class Dynamic: public Entity {
 public:
     sf::Vector2f pos;
+    sf::Vector2f v;
     bool alive;
     float health;
     float healthmax;
     float energy;
     float energymax;
-    float v;
+    //float v;
+    float vmax, vmin, vrot;
     float acceleration;
     float r;
     sf::Texture textureExplosion;
@@ -139,11 +141,11 @@ class Player: public Dynamic {
     sf::Texture texture;
     const sf::Texture *pTexture = &texture;
 public:
+    bool moving = false;
     Player(sf::RenderWindow* window);
     float headlightstimer;
     bool headlights;
     int level;
-    float vmax, vmin, vrot;
     /*void draw()
     {
         window->draw(rectangle);
@@ -214,7 +216,7 @@ Bullet::Bullet(sf::RenderWindow *window, Turret turret, float timer) {
     texture.loadFromFile("images/bullet.png");
     rectangle.setTexture(pTexture);
     r = 5;
-    v = 0.0005;
+    v.x = 0.0005;
     damage = turret.damage;
     birthtime = timer;
     lifetime = 3;
@@ -223,6 +225,7 @@ Bullet::Bullet(sf::RenderWindow *window, Turret turret, float timer) {
     rectangle.setPosition(turret.rectangle.getPosition());
     pos = rectangle.getPosition();
     rectangle.setRotation(turret.rectangle.getRotation()+90);
+    v.y = rectangle.getRotation();
     rectangle.move(turret.rectangle.getSize().x*sin(rectangle.getRotation()*0.0175)/2 ,-turret.rectangle.getSize().x*cos(rectangle.getRotation()*0.0175)/2);
     rectangle.setFillColor(sf::Color(255,255,255,255));
     rectangle.setOutlineColor(sf::Color(0,0,0,0));
@@ -251,7 +254,7 @@ Player::Player(sf::RenderWindow* window)
     acceleration = 0.0000000015;
     r = 25;
     level = 0;
-    v = 0;
+    v.x = 0;
     vmax = 0.0009;
     vmin = -0.00045;
     vrot = 0.0003;
@@ -263,101 +266,103 @@ Player::Player(sf::RenderWindow* window)
 };
 
 void Bullet::update(float time, float timer) {
-    rectangle.move(v*time*sin(rectangle.getRotation()*0.0175) ,-v*time*cos(rectangle.getRotation()*0.0175));
-    pos.x += v*time*sin(rectangle.getRotation()*0.0175);
-    pos.y += -v*time*cos(rectangle.getRotation()*0.0175);
+    rectangle.move(v.x*time*sin(v.y*0.0175) ,-v.x*time*cos(v.y*0.0175));
+    pos.x += v.x*time*sin(v.y*0.0175);
+    pos.y += -v.x*time*cos(v.y*0.0175);
 }
 
 void Player::update(float time, float timer) {
     if(alive)
     {
-        rectangle.move(v*time*sin(rectangle.getRotation()*0.0175) ,-v*time*cos(rectangle.getRotation()*0.0175));
+        if(moving)
+            rectangle.move(v.x*time*sin(v.y*0.0175) ,-v.x*time*cos(v.y*0.0175));
         if(energy > 0)
         {
+            moving = true;
             if(WWW&DDD)
             {
-                if(v < 0)
-                    v = v+3*acceleration*time;
-                else if(v <= (0.5*vmax)-acceleration)
-                    v = v+acceleration*time;
+                if(v.x < 0)
+                    v.x = v.x+3*acceleration*time;
+                else if(v.x <= (0.5*vmax)-acceleration)
+                    v.x = v.x+acceleration*time;
                 else
-                    v = v-acceleration*time;
+                    v.x = v.x-acceleration*time;
                 rectangle.rotate(vrot*time/2);
             }
             else if(WWW&AAA)
             {
-                if(v < 0)
-                    v = v+3*acceleration*time;
-                else if(v <= (0.5*vmax)-acceleration)
-                    v = v+acceleration*time;
+                if(v.x < 0)
+                    v.x = v.x+3*acceleration*time;
+                else if(v.x <= (0.5*vmax)-acceleration)
+                    v.x = v.x+acceleration*time;
                 else
-                    v = v-acceleration*time;
+                    v.x = v.x-acceleration*time;
                 rectangle.rotate(-vrot*time/2);
             }
             else if(SSS&DDD)
             {
-                if(v >= 3*acceleration)
-                    v = v-3*acceleration*time;
-                else if(v > 0)
-                    v = 0;
-                else if(v >= vmin+acceleration)
-                    v = v-acceleration*time;
+                if(v.x >= 3*acceleration)
+                    v.x = v.x-3*acceleration*time;
+                else if(v.x > 0)
+                    v.x = 0;
+                else if(v.x >= vmin+acceleration)
+                    v.x = v.x-acceleration*time;
                 else
-                    v = vmin;
+                    v.x = vmin;
                 rectangle.rotate(vrot*time/2);
             }
             else if(SSS&AAA)
             {
-                if(v >= 3*acceleration)
-                    v = v-3*acceleration*time;
-                else if(v > 0)
-                    v = 0;
-                else if(v >= vmin+acceleration)
-                    v = v-acceleration*time;
+                if(v.x >= 3*acceleration)
+                    v.x = v.x-3*acceleration*time;
+                else if(v.x > 0)
+                    v.x = 0;
+                else if(v.x >= vmin+acceleration)
+                    v.x = v.x-acceleration*time;
                 else
-                    v = vmin;
+                    v.x = vmin;
                 rectangle.rotate(-vrot*time/2);
             }
             else if(WWW)
             {
-                if(v < 0)
-                    v = v+3*acceleration*time;
-                else if(v <= vmax-acceleration)
-                    v = v+acceleration*time;
+                if(v.x < 0)
+                    v.x = v.x+3*acceleration*time;
+                else if(v.x <= vmax-acceleration)
+                    v.x = v.x+acceleration*time;
                 else
-                    v = vmax;
+                    v.x = vmax;
             }
             else 	if(SSS)
             {
-                if(v >= 3*acceleration)
-                    v = v-3*acceleration*time;
-                else if(v > 0)
-                    v = 0;
-                else if(v >= vmin+acceleration)
-                    v = v-acceleration*time;
+                if(v.x >= 3*acceleration)
+                    v.x = v.x-3*acceleration*time;
+                else if(v.x > 0)
+                    v.x = 0;
+                else if(v.x >= vmin+acceleration)
+                    v.x = v.x-acceleration*time;
                 else
-                    v = vmin;
+                    v.x = vmin;
             }
             else 	if(DDD) {
-                if(v >= acceleration)
-                    v = v-acceleration*time;
-                else if(v > 0)
-                    v = 0;
-                else if(v >= -acceleration)
-                    v = 0;
+                if(v.x >= acceleration)
+                    v.x = v.x-acceleration*time;
+                else if(v.x > 0)
+                    v.x = 0;
+                else if(v.x >= -acceleration)
+                    v.x = 0;
                 else
-                    v = v+acceleration*time;
+                    v.x = v.x+acceleration*time;
                 rectangle.rotate(vrot*time);
             }
             else 	if(AAA) {
-                if(v >= acceleration)
-                    v = v-acceleration*time;
-                else if(v > 0)
-                    v = 0;
-                else if(v >= -acceleration)
-                    v = 0;
+                if(v.x >= acceleration)
+                    v.x = v.x-acceleration*time;
+                else if(v.x > 0)
+                    v.x = 0;
+                else if(v.x >= -acceleration)
+                    v.x = 0;
                 else
-                    v = v+acceleration*time;
+                    v.x = v.x+acceleration*time;
                 rectangle.rotate(-vrot*time);
             }
             else 	if(SPACE && (timer-headlightstimer)>0.5 && energy > 10) {
@@ -369,29 +374,35 @@ void Player::update(float time, float timer) {
             }
             else
             {
-                if(v >= acceleration)
-                    v = v-acceleration*time;
-                else if(v > 0)
-                    v = 0;
-                else if(v >= -acceleration)
-                    v = 0;
+                if(v.x >= 0.05*vmax)
+                    v.x = v.x-acceleration*time;
+                else if(v.x > 0) {
+                    moving = false;
+                    v.x = 0;
+                }
+                else if(v.x >= -0.05*vmax)
+                {
+                    moving = false;
+                    v.x = 0;
+                }
                 else
-                    v = v+acceleration*time;
+                    v.x = v.x+acceleration*time;
             }
         }
         else {
-            if (v >= acceleration)
-                v = v - acceleration * time;
-            else if (v > 0)
-                v = 0;
-            else if (v >= -acceleration)
-                v = 0;
+            if (v.x >= acceleration)
+                v.x = v.x - acceleration * time;
+            else if (v.x > 0)
+                v.x = 0;
+            else if (v.x >= -acceleration)
+                v.x = 0;
             else
-                v = v + acceleration * time;
+                v.x = v.x + acceleration * time;
         }
+        v.y = rectangle.getRotation();
         pos = rectangle.getPosition();
-        pos.x += v*time*sin(rectangle.getRotation()*0.0175);
-        pos.y += -v*time*cos(rectangle.getRotation()*0.0175);
+        pos.x += v.x*time*sin(v.y*0.0175);
+        pos.y += -v.x*time*cos(v.y*0.0175);
         energy -= 3*time/1000000;
         if(headlights)
             energy -= 3*time/1000000;
